@@ -8,10 +8,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { data: "" };
-    this.history = createBrowserHistory();
-  }
-  componentDidMount() {
-    // this.history.listen((location) => console.log(location));
   }
 
   render() {
@@ -19,11 +15,8 @@ class App extends Component {
       <>
         <BrowserRouter>
           <Routes>
-            <Route
-              path="/category/:category"
-              element={<Category history={this.history} />}
-            />
-            <Route path="/cart" element={<Cart history={this.history} />} />
+            <Route path="/category/:category" element={<Category />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="*" element={<div>not found</div>} />
           </Routes>
         </BrowserRouter>

@@ -8,9 +8,6 @@ class Cart extends Component {
     super(props);
     this.state = { props };
   }
-  componentDidMount() {
-    console.log(this.props.history.location);
-  }
   render() {
     return (
       <>

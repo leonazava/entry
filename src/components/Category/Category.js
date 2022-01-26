@@ -37,7 +37,7 @@ class Category extends Component {
   }
 
   async handleClick(category) {
-    this.props.history.push(`/category/${category}`);
+    // this.props.history.push(`/category/${category}`);
     const [response, error] = await fetchGraphQL(`
     query {
     category(input: {title: "${category}"} ) {
@@ -57,7 +57,7 @@ class Category extends Component {
         <ul>
           {this.state.categories?.map(({ name }) => (
             <li key={name} onClick={() => this.handleClick(name)}>
-              {name}
+              <Link to={`/category/${name}`}>{name}</Link>
             </li>
           ))}
         </ul>
