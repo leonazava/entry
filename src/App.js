@@ -1,39 +1,37 @@
 import React, { Component } from "react";
+import fetchGraphQL from "./components/fetchGraphQL";
 import "./App.css";
-import { gql, useQuery } from "@apollo/client";
 
-const query = gql`
-  query {
-    categories {
-      name
-    }
-  }
+const query = `
+        query {
+          categories {
+            name
+          }
+        }
 `;
 
-const withUseQuery = (Component) => {
-  return function WrappedApp(props) {
-    const { loading, error, data } = useQuery(query);
-
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
-
-    return <Component {...props} data={data} />;
-  };
-};
-
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data,
-    };
+  state = { data: "" };
+
+  async componentDidMount() {
+    let data;
+    data = await fetchGraphQL(query);
+    console.log(data);
+    this.setState({ ...data });
   }
-  componentDidMount() {
-    console.log(this.state);
+  componentDidUpdate() {
+    console.log(this.state.data);
   }
   render() {
-    return <h1>hello world</h1>;
+    return (
+      <ul>
+        {this.state.data?.categories?.map(({ name }) => (
+          <li key={name}>{name}</li>
+        ))}
+        {/* {console.log(this.state)} */}
+      </ul>
+    );
   }
 }
 
-export default withUseQuery(App);
+export default App;
