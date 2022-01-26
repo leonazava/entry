@@ -6,14 +6,17 @@ import { Link } from "react-router-dom";
 class Cart extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { props };
+  }
+  componentDidMount() {
+    console.log(this.props.history.location);
   }
   render() {
     return (
       <>
         <h3>cart</h3>
         <div>
-          <Link to="/">Home</Link>;
+          <Link to="/category/all">Home</Link>
         </div>
       </>
     );

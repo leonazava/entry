@@ -13,9 +13,9 @@ async function fetchGraphQL(query) {
         ${query}
       `,
     });
-    return response;
+    return [response, null];
   } catch (error) {
-    console.log(error);
+    return [null, error];
   }
 }
 

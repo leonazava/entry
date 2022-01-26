@@ -1,40 +1,30 @@
 import React, { Component } from "react";
 import fetchGraphQL from "./components/fetchGraphQL";
-import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Redirect } from "react-router-dom";
 import { Category, Cart } from "./components";
-
-const query = `
-        query {
-          categories {
-            name
-          }
-        }
-`;
+import { createBrowserHistory } from "history";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = { data: "" };
+    this.history = createBrowserHistory();
   }
-  async componentDidMount() {
-    let data;
-    data = await fetchGraphQL(query);
-    console.log(data);
-    this.setState({ ...data });
+  componentDidMount() {
+    // this.history.listen((location) => console.log(location));
   }
+
   render() {
     return (
       <>
-        {/* <ul>
-          {this.state.data?.categories?.map(({ name }) => (
-            <li key={name}>{name}</li>
-          ))}
-        </ul> */}
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Category />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route
+              path="/category/:category"
+              element={<Category history={this.history} />}
+            />
+            <Route path="/cart" element={<Cart history={this.history} />} />
+            <Route path="*" element={<div>not found</div>} />
           </Routes>
         </BrowserRouter>
       </>
