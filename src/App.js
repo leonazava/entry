@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import fetchGraphQL from "./components/fetchGraphQL";
-import { BrowserRouter, Routes, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Category, Cart } from "./components";
 import { createBrowserHistory } from "history";
 
@@ -8,18 +8,20 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { data: "" };
+    this.history = createBrowserHistory();
   }
 
   render() {
     return (
       <>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/category/:category" element={<Category />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="*" element={<div>not found</div>} />
-          </Routes>
-        </BrowserRouter>
+        <Router>
+          <Switch>
+            {" "}
+            <Route path="/category/:category" component={Category} />
+            <Route path="/cart" component={Cart} />
+            {/* <Route to="*"></Route> */}
+          </Switch>
+        </Router>
       </>
     );
   }

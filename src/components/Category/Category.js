@@ -3,51 +3,50 @@ import fetchGraphQL from "../fetchGraphQL";
 import { Link } from "react-router-dom";
 import "./styles.sass";
 
-const query = `
-        query {
-          categories {
-            name
-          }
-        }
-`;
-
 class Category extends Component {
   constructor(props) {
     super(props);
-    this.state = { categories: [], data: [] };
+    this.state = { current: "all", categories: [], data: [] };
     this.handleClick = this.handleClick.bind(this);
   }
 
   async componentDidMount() {
-    let [response, error] = await fetchGraphQL(query);
-    if (error) {
-      console.log(error);
-    }
-    this.setState({ categories: response.data.categories });
-    [response, error] = await fetchGraphQL(`
+    let [response, error] = await fetchGraphQL(`
     query {
-    category(input: {title: "all"} ) {
+      categories { name },
+    category(input: {title: "${this.state.current}"} ) {
       products {
         name
       }
     }
   }
     `);
-    this.setState({ data: response.data.category.products });
+
+    this.setState({
+      categories: response.data.categories,
+      data: response.data.category.products,
+    });
   }
 
-  async handleClick(category) {
-    // this.props.history.push(`/category/${category}`);
+  async componentDidUpdate(prevProps, prevState) {
+    if (prevState.current === this.state.current) return;
     const [response, error] = await fetchGraphQL(`
     query {
-    category(input: {title: "${category}"} ) {
+    category(input: {title: "${this.state.current}"} ) {
       products {
         name,
       }
     }
   }
     `);
+    if (error) {
+      console.log(error);
+    }
     this.setState({ data: response.data.category.products });
+  }
+
+  async handleClick() {
+    this.setState({ current: this.props.match.params.category });
   }
 
   render() {
@@ -56,7 +55,7 @@ class Category extends Component {
         <h3>category</h3>
         <ul>
           {this.state.categories?.map(({ name }) => (
-            <li key={name} onClick={() => this.handleClick(name)}>
+            <li key={name} onClick={this.handleClick}>
               <Link to={`/category/${name}`}>{name}</Link>
             </li>
           ))}
