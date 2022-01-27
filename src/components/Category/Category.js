@@ -1,21 +1,18 @@
 import React, { Component } from "react";
 import fetchGraphQL from "../fetchGraphQL";
 import { Link, matchPath } from "react-router-dom";
+import { connect } from "react-redux";
+import { assign } from "../../store/categoryStore";
 import "./styles.sass";
-import categoryStore from "../../store/categoryStore";
 
 class Category extends Component {
   constructor(props) {
     super(props);
-
-    //!!TODO:
-    //  make this dynamic, move the current property to a redux store
-
-    this.state = { current: "all", categories: [], data: [] };
+    this.state = { categories: [], data: [] };
   }
 
   async componentDidMount() {
-    categoryStore.subscribe(this.render);
+    console.log(this.props);
     let urlmatch;
     this.unlisten = this.props.history.listen(() => {
       // prevent listener from running before unmount
@@ -25,13 +22,14 @@ class Category extends Component {
         path: this.props.match.path,
       });
       // set state category to the currently selected category
-      this.setState({ current: urlmatch.params.category });
+      // this.setState({ current: urlmatch.params.category });
+      this.props.assign(urlmatch.params.category);
     });
     // fetch the endpoint using the state
     let [response, error] = await fetchGraphQL(`
     query {
       categories { name },
-      category(input: {title: "${categoryStore.getState().value}"} ) {
+      category(input: {title: "${this.props.value}"} ) {
         products {
           name
         }
@@ -51,16 +49,16 @@ class Category extends Component {
 
   // fetch new data on rerender
   async componentDidUpdate(prevProps, prevState) {
-    if (prevState.current === this.state.current) return;
+    if (prevProps.value === this.props.value) return;
     const [response, error] = await fetchGraphQL(`
-    query {
-    category(input: {title: "${this.state.current}"} ) {
-      products {
-        name,
+      query {
+      category(input: {title: "${this.props.value}"} ) {
+        products {
+          name,
+        }
       }
     }
-  }
-    `);
+      `);
     if (error) {
       console.log(error);
       return;
@@ -96,4 +94,8 @@ class Category extends Component {
   }
 }
 
-export default Category;
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps, { assign })(Category);
