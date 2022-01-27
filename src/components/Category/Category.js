@@ -6,6 +6,10 @@ import "./styles.sass";
 class Category extends Component {
   constructor(props) {
     super(props);
+
+    //!!TODO:
+    //  make this dynamic, move the current property to a redux store
+
     this.state = { current: "all", categories: [], data: [] };
   }
 
