@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import fetchGraphQL from "../fetchGraphQL";
 import { Link, matchPath } from "react-router-dom";
 import "./styles.sass";
+import categoryStore from "../../store/categoryStore";
 
 class Category extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class Category extends Component {
   }
 
   async componentDidMount() {
+    categoryStore.subscribe(this.render);
     let urlmatch;
     this.unlisten = this.props.history.listen(() => {
       // prevent listener from running before unmount
@@ -22,14 +24,14 @@ class Category extends Component {
       urlmatch = matchPath(this.props.history.location.pathname, {
         path: this.props.match.path,
       });
-      // set state to the currently selected category
+      // set state category to the currently selected category
       this.setState({ current: urlmatch.params.category });
     });
     // fetch the endpoint using the state
     let [response, error] = await fetchGraphQL(`
     query {
       categories { name },
-      category(input: {title: "${this.state.current}"} ) {
+      category(input: {title: "${categoryStore.getState().value}"} ) {
         products {
           name
         }
@@ -38,6 +40,7 @@ class Category extends Component {
       `);
     if (error) {
       console.log(error);
+      return;
     }
     // set state data to the response
     this.setState({
@@ -60,6 +63,7 @@ class Category extends Component {
     `);
     if (error) {
       console.log(error);
+      return;
     }
     this.setState({ data: response.data.category.products });
   }
