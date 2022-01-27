@@ -1,33 +1,48 @@
 import React, { Component } from "react";
 import fetchGraphQL from "../fetchGraphQL";
-import { Link } from "react-router-dom";
+import { Link, matchPath } from "react-router-dom";
 import "./styles.sass";
 
 class Category extends Component {
   constructor(props) {
     super(props);
     this.state = { current: "all", categories: [], data: [] };
-    this.handleClick = this.handleClick.bind(this);
   }
 
   async componentDidMount() {
+    let urlmatch;
+    this.unlisten = this.props.history.listen(() => {
+      // prevent listener from running before unmount
+      if (!this.props.history.location.pathname.includes("category")) return;
+      // get fresh URL parameters
+      urlmatch = matchPath(this.props.history.location.pathname, {
+        path: this.props.match.path,
+      });
+      // set state to the currently selected category
+      this.setState({ current: urlmatch.params.category });
+    });
+    // fetch the endpoint using the state
     let [response, error] = await fetchGraphQL(`
     query {
       categories { name },
-    category(input: {title: "${this.state.current}"} ) {
-      products {
-        name
+      category(input: {title: "${this.state.current}"} ) {
+        products {
+          name
+        }
       }
     }
-  }
-    `);
-
+      `);
+    if (error) {
+      console.log(error);
+    }
+    // set state data to the response
     this.setState({
       categories: response.data.categories,
       data: response.data.category.products,
     });
   }
 
+  // fetch new data on rerender
   async componentDidUpdate(prevProps, prevState) {
     if (prevState.current === this.state.current) return;
     const [response, error] = await fetchGraphQL(`
@@ -45,17 +60,17 @@ class Category extends Component {
     this.setState({ data: response.data.category.products });
   }
 
-  async handleClick() {
-    this.setState({ current: this.props.match.params.category });
+  // remove history listener on unmount
+  componentWillUnmount() {
+    this.unlisten();
   }
-
   render() {
     return (
       <>
         <h3>category</h3>
         <ul>
           {this.state.categories?.map(({ name }) => (
-            <li key={name} onClick={this.handleClick}>
+            <li key={name}>
               <Link to={`/category/${name}`}>{name}</Link>
             </li>
           ))}
