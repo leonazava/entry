@@ -11,19 +11,23 @@ class Category extends Component {
     this.state = { categories: [], data: [] };
   }
 
+  // derive currently selected category from the URL params
+  getParams() {
+    let { category } = matchPath(this.props.history.location.pathname, {
+      path: this.props.match.path,
+    }).params;
+    return category;
+  }
+
   async componentDidMount() {
-    console.log(this.props);
-    let urlmatch;
+    // fetch different data depending on the starting URL
+    this.props.assign(this.getParams());
+    // use react router listen function to react to route changes
     this.unlisten = this.props.history.listen(() => {
-      // prevent listener from running before unmount
+      // prevent listener from running on unmount
       if (!this.props.history.location.pathname.includes("category")) return;
-      // get fresh URL parameters
-      urlmatch = matchPath(this.props.history.location.pathname, {
-        path: this.props.match.path,
-      });
-      // set state category to the currently selected category
-      // this.setState({ current: urlmatch.params.category });
-      this.props.assign(urlmatch.params.category);
+      // get currently selected category from the URL parameters & use it to update the corresponding state property
+      this.props.assign(this.getParams());
     });
     // fetch the endpoint using the state
     let [response, error] = await fetchGraphQL(`
