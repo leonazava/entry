@@ -3,6 +3,8 @@ import fetchGraphQL from "../fetchGraphQL";
 import { Link, matchPath } from "react-router-dom";
 import { connect } from "react-redux";
 import { assign } from "../../store/categoryStore";
+import { add } from "../../store/cartStore";
+import Product from "./CategoryProduct";
 import "./styles.sass";
 
 class Category extends Component {
@@ -90,7 +92,10 @@ class Category extends Component {
         </div>
         <ul style={{ marginTop: "1rem" }}>
           {this.state.data?.map(({ name }) => (
-            <li key={name}>{name}</li>
+            // <Product key={name} name={name} />
+            <li key={name} onClick={() => this.props.add(name)}>
+              {name}
+            </li>
           ))}
         </ul>
       </>
@@ -98,8 +103,4 @@ class Category extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return state;
-};
-
-export default connect(mapStateToProps, { assign })(Category);
+export default connect((state) => state.category, { assign, add })(Category);
