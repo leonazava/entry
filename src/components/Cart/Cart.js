@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import fetchGraphQL from "../fetchGraphQL";
+import { connect } from "react-redux";
+import { add } from "../../store/cartStore";
 import "./styles.sass";
 import { Link } from "react-router-dom";
 
@@ -20,4 +21,4 @@ class Cart extends Component {
   }
 }
 
-export default Cart;
+export default connect((state) => state.cart, { add })(Cart);

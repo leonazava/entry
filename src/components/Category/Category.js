@@ -4,6 +4,7 @@ import { Link, matchPath } from "react-router-dom";
 import { connect } from "react-redux";
 import { assign } from "../../store/categoryStore";
 import { add } from "../../store/cartStore";
+import Cart from "../Cart/Cart";
 import Product from "./CategoryProduct";
 import "./styles.sass";
 
