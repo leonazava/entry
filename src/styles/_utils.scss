@@ -13,14 +13,15 @@
   font-size: 32px;
 }
 
-@mixin xl($fw) {
+@mixin xl($fw: normal) {
   font-size: 30px;
   line-height: 27px;
-  font-weight: $fw;
+  font-weight: $fw !important;
 }
 
-@mixin l {
+@mixin l($fw) {
   font-size: 24px;
+  font-weight: $fw;
 }
 
 @mixin m {

@@ -1,9 +1,43 @@
 @use "/src/styles/utils"
+@use "src/styles/vars"
 
 .PLP
+    padding-bottom: 5rem
     &__selector 
         margin-top: 5rem
         @include utils.container
+        display: flex
+        li + li
+            margin-left: 5rem
+        h1
+            @include utils.xxxl
+            color: vars.$gray
+        h1.active 
+            color: vars.$black
     &__container
         margin-top: 6rem
         @include utils.container
+        display: grid
+        grid-column-gap: 3rem
+        grid-row-gap: 7rem
+        grid-template-columns: repeat(3, 1fr)
+        li
+            aspect-ratio: 0.9
+            padding: 1rem
+            display: flex
+            flex-direction: column
+            justify-content: space-between
+            gap: 1rem
+            .PLP__image-container
+                width: 100%
+                aspect-ratio: 1.1
+            .PLP__image-container img
+                width: 100%
+                aspect-ratio: 1.1
+                object-fit: contain
+            .description
+                h2:first-child  
+                    @include utils.l(300)
+                h2:nth-child(2) 
+                    @include utils.l(500)
+

@@ -7,6 +7,7 @@ import { add } from "../../store/cartStore";
 import Cart from "../Cart/Cart";
 import Product from "./CategoryProduct";
 import "./styles.sass";
+import { stripIgnoredCharacters } from "graphql";
 
 class Category extends Component {
   constructor(props) {
@@ -38,6 +39,7 @@ class Category extends Component {
       categories { name },
       category(input: {title: "${this.props.value}"} ) {
         products {
+          gallery, 
           name
         }
       }
@@ -62,10 +64,12 @@ class Category extends Component {
       category(input: {title: "${this.props.value}"} ) {
         products {
           name,
+          gallery
         }
       }
     }
       `);
+    // console.log(response.data.category.products);
     if (error) {
       console.log(error);
       return;
@@ -78,20 +82,31 @@ class Category extends Component {
     this.unlisten();
   }
   render() {
+    function capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
     return (
       <div className="PLP">
         <ul className="PLP__selector">
           {this.state.categories?.map(({ name }) => (
             <li key={name}>
-              <Link to={`/category/${name}`}>{name}</Link>
+              <Link to={`/category/${name}`}>
+                <h1>{capitalize(name)}</h1>
+              </Link>
             </li>
           ))}
         </ul>
         <ul className="PLP__container">
-          {this.state.data?.map(({ name }) => (
+          {this.state.data?.map(({ name, gallery }) => (
             // <Product key={name} name={name} />
             <li key={name} onClick={() => this.props.add(name)}>
-              {name}
+              <div className="PLP__image-container">
+                <img src={gallery[0]} alt="product image" />
+              </div>
+              <div className="description">
+                <h2>{name}</h2>
+                <h2>$50</h2>
+              </div>
             </li>
           ))}
         </ul>
