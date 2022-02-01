@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Category, Cart } from "./components";
+import { Category, Cart, Navbar } from "./components";
 
 class App extends Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class App extends Component {
   render() {
     return (
       <>
+        <Navbar />
         <Router>
           <Switch>
             {" "}

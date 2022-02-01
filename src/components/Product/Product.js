@@ -8,7 +8,7 @@ class Product extends Component {
     this.state = {};
   }
   render() {
-    return <h1>Product</h1>;
+    return <div className="PDP">Product</div>;
   }
 }
 

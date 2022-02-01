@@ -1,0 +1,32 @@
+@mixin container {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
+}
+
+@mixin xxxl {
+  font-size: 42px;
+}
+
+@mixin xxl {
+  font-size: 32px;
+}
+
+@mixin xl($fw) {
+  font-size: 30px;
+  line-height: 27px;
+  font-weight: $fw;
+}
+
+@mixin l {
+  font-size: 24px;
+}
+
+@mixin m {
+  font-size: 18px;
+}
+
+@mixin s() {
+  font-size: 16px;
+}

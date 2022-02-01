@@ -79,19 +79,15 @@ class Category extends Component {
   }
   render() {
     return (
-      <>
-        <h3>category</h3>
-        <ul>
+      <div className="PLP">
+        <ul className="PLP__selector">
           {this.state.categories?.map(({ name }) => (
             <li key={name}>
               <Link to={`/category/${name}`}>{name}</Link>
             </li>
           ))}
         </ul>
-        <div>
-          <Link to="/cart">Cart</Link>
-        </div>
-        <ul style={{ marginTop: "1rem" }}>
+        <ul className="PLP__container">
           {this.state.data?.map(({ name }) => (
             // <Product key={name} name={name} />
             <li key={name} onClick={() => this.props.add(name)}>
@@ -99,7 +95,7 @@ class Category extends Component {
             </li>
           ))}
         </ul>
-      </>
+      </div>
     );
   }
 }

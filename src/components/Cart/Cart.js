@@ -11,12 +11,12 @@ class Cart extends Component {
   }
   render() {
     return (
-      <>
+      <div className="cart">
         <h3>cart</h3>
         <div>
           <Link to="/category/all">Home</Link>
         </div>
-      </>
+      </div>
     );
   }
 }
