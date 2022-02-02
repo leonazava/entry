@@ -4,10 +4,10 @@ import { Link, matchPath } from "react-router-dom";
 import { connect } from "react-redux";
 import { assign } from "../../store/categoryStore";
 import { add } from "../../store/cartStore";
+import { cart } from "../../assets";
 import Cart from "../Cart/Cart";
 import Product from "./CategoryProduct";
 import "./styles.sass";
-import { stripIgnoredCharacters } from "graphql";
 
 class Category extends Component {
   constructor(props) {
@@ -40,7 +40,8 @@ class Category extends Component {
       category(input: {title: "${this.props.value}"} ) {
         products {
           gallery, 
-          name
+          name,
+          inStock
         }
       }
     }
@@ -64,7 +65,8 @@ class Category extends Component {
       category(input: {title: "${this.props.value}"} ) {
         products {
           name,
-          gallery
+          gallery,
+          inStock
         }
       }
     }
@@ -99,11 +101,18 @@ class Category extends Component {
           ))}
         </ul>
         <ul className="PLP__container">
-          {this.state.data?.map(({ name, gallery }) => (
+          {this.state.data?.map(({ name, gallery, inStock }) => (
             // <Product key={name} name={name} />
-            <li key={name} onClick={() => this.props.add(name)}>
+            <li key={name} className={`PLP__product ${inStock && "in-stock"}`}>
               <div className="PLP__image-container">
                 <img src={gallery[0]} alt="product image" />
+                <button
+                  className="add-to-cart-btn"
+                  onClick={() => this.props.add(name)}
+                >
+                  <img src={cart} alt="icon" />
+                </button>
+                <h2>OUT OF STOCK</h2>
               </div>
               <div className="description">
                 <h2>{name}</h2>

@@ -3,6 +3,7 @@
 
 .PLP
     padding-bottom: 5rem
+
     &__selector 
         margin-top: 5rem
         @include utils.container
@@ -12,11 +13,12 @@
         h1
             @include utils.xxxl
             color: vars.$gray
-            transition: .5s
+            transition: .2s
         h1:hover  
             color: vars.$black
         h1.active 
             color: vars.$black
+
     &__container
         margin-top: 6rem
         @include utils.container
@@ -24,23 +26,59 @@
         grid-column-gap: 3rem
         grid-row-gap: 7rem
         grid-template-columns: repeat(3, 1fr)
-        li
+        li.PLP__product
+            opacity: 0.5
             aspect-ratio: 0.9
             padding: 1rem
             display: flex
             flex-direction: column
             justify-content: space-between
             gap: 1rem
+            background: white
+            transition: 0.2s
             .PLP__image-container
+                position: relative
                 width: 100%
                 aspect-ratio: 1.1
-            .PLP__image-container img
+            .PLP__image-container > img
                 width: 100%
                 aspect-ratio: 1.1
                 object-fit: contain
+            .PLP__image-container .add-to-cart-btn
+                position: absolute
+                right: 15px
+                bottom: -26px
+                width: 52px
+                height: 52px
+                background-color: vars.$primary
+                border-radius: 100%
+                visibility: hidden
+                opacity: 0
+                transition: 0.3s
+                display: flex
+                justify-content: center
+                align-items: center
+                img
+                    filter: invert(1)
+            .PLP__image-container h2 
+                @include utils.l(normal)
+                position: absolute
+                top: 50%
+                left: 50%
+                transform: translate(-50%, -50%)
             .description
                 h2:first-child  
                     @include utils.l(300)
                 h2:nth-child(2) 
                     @include utils.l(500)
+        li.PLP__product.in-stock
+            opacity: 1
+            .PLP__image-container h2 
+                display: none
+
+        li.PLP__product.in-stock:hover 
+            filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19))
+            .PLP__image-container .add-to-cart-btn
+                visibility: visible
+                opacity: 1
 
