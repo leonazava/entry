@@ -104,7 +104,7 @@ class Category extends Component {
           {this.state.data?.map(({ name, gallery, inStock }) => (
             // <Product key={name} name={name} />
             <li key={name} className={`PLP__product ${inStock && "in-stock"}`}>
-              <div className="PLP__image-container">
+              <div className="PLP__product-image-container">
                 <img src={gallery[0]} alt="product image" />
                 <button
                   className="add-to-cart-btn"
@@ -114,7 +114,7 @@ class Category extends Component {
                 </button>
                 <h2>OUT OF STOCK</h2>
               </div>
-              <div className="description">
+              <div className="PLP__product-description">
                 <h2>{name}</h2>
                 <h2>$50</h2>
               </div>

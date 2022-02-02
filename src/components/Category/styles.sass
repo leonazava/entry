@@ -26,7 +26,9 @@
         grid-column-gap: 3rem
         grid-row-gap: 7rem
         grid-template-columns: repeat(3, 1fr)
-        li.PLP__product
+
+        .PLP__product
+            // the product is considered out-of-stock unless the data says otherwise
             opacity: 0.5
             aspect-ratio: 0.9
             padding: 1rem
@@ -36,15 +38,15 @@
             gap: 1rem
             background: white
             transition: 0.2s
-            .PLP__image-container
+            &-image-container
                 position: relative
                 width: 100%
                 aspect-ratio: 1.1
-            .PLP__image-container > img
+            &-image-container > img
                 width: 100%
                 aspect-ratio: 1.1
                 object-fit: contain
-            .PLP__image-container .add-to-cart-btn
+            &-image-container .add-to-cart-btn
                 position: absolute
                 right: 15px
                 bottom: -26px
@@ -60,25 +62,26 @@
                 align-items: center
                 img
                     filter: invert(1)
-            .PLP__image-container h2 
+            &-image-container h2 
                 @include utils.l(normal)
                 position: absolute
                 top: 50%
                 left: 50%
                 transform: translate(-50%, -50%)
-            .description
+            &-description
                 h2:first-child  
                     @include utils.l(300)
                 h2:nth-child(2) 
                     @include utils.l(500)
-        li.PLP__product.in-stock
-            opacity: 1
-            .PLP__image-container h2 
-                display: none
 
-        li.PLP__product.in-stock:hover 
+        //  special stylings for in-stock products
+        .PLP__product.in-stock
+            opacity: 1
+            .PLP__product-image-container h2 
+                display: none
+        .PLP__product.in-stock:hover 
             filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19))
-            .PLP__image-container .add-to-cart-btn
+            .PLP__product-image-container .add-to-cart-btn
                 visibility: visible
                 opacity: 1
 
