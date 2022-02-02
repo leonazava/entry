@@ -12,11 +12,15 @@ class Navbar extends Component {
       currencyOpen: false,
       bagOpen: false,
     };
+    this.wrapperRef = React.createRef();
+    this.handleClickOutside = this.handleClickOutside.bind(this);
     this.handleCurrencyModalClick = this.handleCurrencyModalClick.bind(this);
     this.handleCurrencySelect = this.handleCurrencySelect.bind(this);
   }
 
   async componentDidMount() {
+    document.addEventListener("mousedown", this.handleClickOutside);
+
     const [response, error] = await fetchGraphQL(`query {
       currencies {
         label,
@@ -30,6 +34,10 @@ class Navbar extends Component {
     this.props.assign(response.data.currencies);
   }
 
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  }
+
   handleCurrencyModalClick() {
     this.setState((state) => ({ currencyOpen: !state.currencyOpen }));
   }
@@ -37,6 +45,12 @@ class Navbar extends Component {
   handleCurrencySelect(el) {
     this.props.select(el);
     this.setState({ currencyOpen: false });
+  }
+
+  handleClickOutside(event) {
+    if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
+      this.setState({ currencyOpen: false, bagOpen: false });
+    }
   }
 
   render() {
@@ -52,6 +66,7 @@ class Navbar extends Component {
         </div>
         <div className="utils-wrapper">
           <div
+            ref={this.wrapperRef}
             className={`utils ${
               this.state.currencyOpen ? "currency-open" : ""
             }`}
@@ -64,8 +79,8 @@ class Navbar extends Component {
               <img src={cart} alt="minicart" />
             </div>
             <ul className="modal currency-modal">
-              {this.props.value?.currencies.map((e) => (
-                <li onClick={() => this.handleCurrencySelect(e)}>
+              {this.props.value?.currencies.map((e, i) => (
+                <li key={i} onClick={() => this.handleCurrencySelect(e)}>
                   <h3>{e.symbol}</h3>
                   <h3>{e.label}</h3>
                 </li>
