@@ -91,7 +91,9 @@ class Category extends Component {
           {this.state.categories?.map(({ name }) => (
             <li key={name}>
               <Link to={`/category/${name}`}>
-                <h1>{capitalize(name)}</h1>
+                <h1 className={this.props.value === name && "active"}>
+                  {capitalize(name)}
+                </h1>
               </Link>
             </li>
           ))}
