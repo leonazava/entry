@@ -15,9 +15,9 @@
             color: vars.$gray
             transition: .2s
         h1:hover  
-            color: vars.$black
+            color: vars.$c-text
         h1.active 
-            color: vars.$black
+            color: vars.$c-text
 
     &__container
         margin-top: 6rem
@@ -64,11 +64,14 @@
                     filter: invert(1)
             &-image-container h2 
                 @include utils.l(normal)
+                user-select: none
                 position: absolute
                 top: 50%
                 left: 50%
                 transform: translate(-50%, -50%)
             &-description
+                h2 
+                    color: vars.$c-black
                 h2:first-child  
                     @include utils.m
                     font-weight: 300

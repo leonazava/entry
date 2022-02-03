@@ -1,15 +1,13 @@
 import React, { Component } from "react";
-import fetchGraphQL from "../fetchGraphQL";
 import { Link, matchPath } from "react-router-dom";
 import { connect } from "react-redux";
-import { assign } from "../../store/categoryStore";
-import { add } from "../../store/cartStore";
-import { cart } from "../../assets";
-import Cart from "../Cart/Cart";
-import Product from "./CategoryProduct";
+import fetchGraphQL from "components/fetchGraphQL";
+import { assign } from "store/categoryStore";
+import { add } from "store/cartStore";
+import { cart } from "assets";
 import "./styles.sass";
 
-class Category extends Component {
+class PLP extends Component {
   constructor(props) {
     super(props);
     //move this data to global state
@@ -169,4 +167,4 @@ export default connect(
     assign,
     add,
   }
-)(Category);
+)(PLP);

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Category, Cart, Navbar } from "./components";
+import { PLP, Navbar } from "components";
 
 class App extends Component {
   constructor(props) {
@@ -15,8 +15,8 @@ class App extends Component {
         <Router>
           <Switch>
             {" "}
-            <Route path="/category/:category" component={Category} />
-            <Route path="/cart" component={Cart} />
+            <Route path="/category/:category" component={PLP} />
+            {/* <Route path="/cart" component={Cart} /> */}
             {/* <Route to="*"></Route> */}
           </Switch>
         </Router>
