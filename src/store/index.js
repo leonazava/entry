@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+
 import categoryReducer from "./categoryStore";
 import cartReducer from "./cartStore";
 import currencyReducer from "./currencyStore";

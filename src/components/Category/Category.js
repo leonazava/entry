@@ -38,7 +38,7 @@ class Category extends Component {
     let [response, error] = await fetchGraphQL(`
     query {
       categories { name },
-      category(input: {title: "${this.props.value}"} ) {
+      category(input: {title: "${this.props.category.value}"} ) {
         products {
           gallery, 
           name,
@@ -66,11 +66,11 @@ class Category extends Component {
 
   // fetch new data on rerender
   async componentDidUpdate(prevProps, prevState) {
-    if (prevProps.value === this.props.value) return;
+    if (prevProps.category.value === this.props.category.value) return;
     // is there a way to optimize this by querying less data/reusing old data?
     const [response, error] = await fetchGraphQL(`
       query {
-      category(input: {title: "${this.props.value}"} ) {
+      category(input: {title: "${this.props.category.value}"} ) {
         products {
           name,
           gallery,
@@ -85,7 +85,6 @@ class Category extends Component {
       }
     }
       `);
-    // console.log(response.data.category.products);
     if (error) {
       console.log(error);
       return;
@@ -97,17 +96,31 @@ class Category extends Component {
   componentWillUnmount() {
     this.unlisten();
   }
+
+  getCurrency(el) {
+    let res;
+    for (let i = 0; i < el.length; i++) {
+      if (el[i].currency.label === this.props.currency.value.active.label) {
+        res = el[i];
+        return res;
+      }
+    }
+  }
+
   render() {
     function capitalize(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     }
+
     return (
       <div className="PLP">
         <ul className="PLP__selector">
           {this.state.categories?.map(({ name }) => (
             <li key={name}>
               <Link to={`/category/${name}`}>
-                <h1 className={this.props.value === name ? "active" : ""}>
+                <h1
+                  className={this.props.category.value === name ? "active" : ""}
+                >
                   {capitalize(name)}
                 </h1>
               </Link>
@@ -115,7 +128,8 @@ class Category extends Component {
           ))}
         </ul>
         <ul className="PLP__container">
-          {this.state.data?.map(({ name, gallery, inStock }) => (
+          {this.state.data?.map(({ name, gallery, inStock, prices }) => (
+            // Componentize + reuse all of this vvv
             // <Product key={name} name={name} />
             <li
               key={name}
@@ -136,7 +150,10 @@ class Category extends Component {
               </div>
               <div className="PLP__product-description">
                 <h2>{name}</h2>
-                <h2>$50</h2>
+                <h2>
+                  {this.props.currency.value.active.symbol}
+                  {this.getCurrency(prices).amount}
+                </h2>
               </div>
             </li>
           ))}
@@ -146,4 +163,10 @@ class Category extends Component {
   }
 }
 
-export default connect((state) => state.category, { assign, add })(Category);
+export default connect(
+  (state) => ({ category: state.category, currency: state.currency }),
+  {
+    assign,
+    add,
+  }
+)(Category);
