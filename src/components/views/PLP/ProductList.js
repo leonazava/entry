@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { cart } from "assets";
+import PLPProduct from "components/Product/PLPProduct";
 import fetchGraphQL from "components/fetchGraphQL";
 import { connect } from "react-redux";
 import { add } from "store/cartStore";
@@ -11,7 +10,6 @@ class ProductListClass extends Component {
     this.state = { value: [] };
   }
   async componentDidMount() {
-    console.log(this.props);
     // fetch the endpoint using the active category value from redux store
     let [response, error] = await fetchGraphQL(`
     query {
@@ -70,48 +68,12 @@ class ProductListClass extends Component {
   render() {
     return (
       <ul className="PLP__container">
-        {this.state.value?.map(({ name, gallery, inStock, prices }) => (
-          // Componentize + reuse all of this vvv
-          // <Product key={name} name={name} />
-          <li
-            key={name}
-            className={`PLP__product ${inStock ? "in-stock" : ""}`}
-          >
-            <div className="PLP__product-image-container">
-              <img src={gallery[0]} alt="product image" />
-              <button
-                className="add-to-cart-btn"
-                onClick={(e) => {
-                  e.preventDefault();
-                  this.props.add(name);
-                }}
-              >
-                <img src={cart} alt="icon" />
-              </button>
-              <h2>OUT OF STOCK</h2>
-            </div>
-            <div className="PLP__product-description">
-              <h2>{name}</h2>
-              <h2>
-                {/* {this.props.currency.value.active.symbol}
-                {this.getCurrency(prices).amount} */}
-              </h2>
-            </div>
-          </li>
+        {this.state.value?.map((el, i) => (
+          <PLPProduct key={i} data={el} />
         ))}
       </ul>
     );
   }
-
-  // getCurrency(el) {
-  //   let res;
-  //   for (let i = 0; i < el.length; i++) {
-  //     if (el[i].currency.label === this.props.currency.value.active.label) {
-  //       res = el[i];
-  //       return res;
-  //     }
-  //   }
-  // }
 }
 
 export const ProductList = connect((state) => state.category, { add })(
