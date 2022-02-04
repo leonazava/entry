@@ -11,8 +11,9 @@ class CategorySelectorClass extends Component {
     this.state = { value: [] };
   }
   async componentDidMount() {
-    // on ititial load, fetch different data on initial mount depending on the starting URL
+    // on ititial load, get the starting selected category from the URL
     this.props.assign(this.getCategory());
+    // fetch the existing selectable categories
     const [response, error] = await fetchGraphQL(`query {categories { name }}`);
     if (error) {
       console.log("error");

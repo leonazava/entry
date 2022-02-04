@@ -9,40 +9,11 @@ class ProductListClass extends Component {
     super(props);
     this.state = { value: [] };
   }
-  async componentDidMount() {
-    // fetch the endpoint using the active category value from redux store
-    let [response, error] = await fetchGraphQL(`
-    query {
-      category(input: {title: "${this.props.value}"} ) {
-        products {
-          id, 
-          gallery, 
-          name,
-          inStock,
-          brand, 
-          prices {
-            currency {
-              label
-            },
-            amount
-          }
-        }
-      }
-    }
-      `);
-    if (error) {
-      console.log(error);
-      return;
-    }
-    // set state data to the response
-    this.setState({
-      value: response.data.category.products,
-    });
-  }
-
-  // refetch new data based on selected category change
+  //  fetch new data based on selected category change
   async componentDidUpdate(prevProps) {
+    console.log("update before condition");
     if (prevProps.value === this.props.value) return;
+    console.log("update after condition");
     const [response, error] = await fetchGraphQL(`
       query {
       category(input: {title: "${this.props.value}"} ) {
