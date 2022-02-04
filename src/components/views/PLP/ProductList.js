@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PLPProduct from "components/Product/PLPProduct";
+import Product from "components/Product/Product";
 import fetchGraphQL from "components/fetchGraphQL";
 import { connect } from "react-redux";
 import { add } from "store/cartStore";
@@ -15,9 +15,11 @@ class ProductListClass extends Component {
     query {
       category(input: {title: "${this.props.value}"} ) {
         products {
+          id, 
           gallery, 
           name,
           inStock,
+          brand, 
           prices {
             currency {
               label
@@ -69,7 +71,12 @@ class ProductListClass extends Component {
     return (
       <ul className="PLP__container">
         {this.state.value?.map((el, i) => (
-          <PLPProduct key={i} data={el} />
+          <Product
+            key={i}
+            data={el}
+            history={this.props.history}
+            match={this.props.match}
+          />
         ))}
       </ul>
     );

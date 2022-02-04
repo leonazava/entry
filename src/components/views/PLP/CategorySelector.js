@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Link, matchPath } from "react-router-dom";
-import fetchGraphQL from "components/fetchGraphQL";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { assign } from "store/categoryStore";
+import fetchGraphQL from "components/fetchGraphQL";
+import getParams from "components/getParams";
 
 class CategorySelectorClass extends Component {
   constructor(props) {
@@ -10,27 +11,14 @@ class CategorySelectorClass extends Component {
     this.state = { value: [] };
   }
   async componentDidMount() {
-    // fetch different data on initial mount depending on the starting URL
-    this.props.assign(this.getParams());
-    // use react router listen function to react to route changes
-    this.unlisten = this.props.history.listen(() => {
-      // prevent listener from running on unmount
-      if (!this.props.history.location.pathname.includes("category")) return;
-      // get currently selected category from the URL parameters & use it to update the corresponding state property
-      this.props.assign(this.getParams());
-    });
-    // fetch the endpoint using the state
+    // on ititial load, fetch different data on initial mount depending on the starting URL
+    this.props.assign(this.getCategory());
     const [response, error] = await fetchGraphQL(`query {categories { name }}`);
     if (error) {
       console.log("error");
       return;
     }
     this.setState({ value: response.data.categories });
-  }
-
-  // remove history listener on unmount
-  componentWillUnmount() {
-    this.unlisten();
   }
 
   render() {
@@ -40,7 +28,7 @@ class CategorySelectorClass extends Component {
     return (
       <ul className="PLP__selector">
         {this.state.value.map(({ name }) => (
-          <li key={name}>
+          <li key={name} onClick={() => this.handleClick(name)}>
             <Link to={`/category/${name}`}>
               <h1
                 className={this.props.category.value === name ? "active" : ""}
@@ -54,11 +42,16 @@ class CategorySelectorClass extends Component {
     );
   }
 
-  getParams() {
-    let { category } = matchPath(this.props.history.location.pathname, {
-      path: this.props.match.path,
-    }).params;
+  getCategory() {
+    let { category } = getParams(
+      this.props.history.location.pathname,
+      this.props.match.path
+    );
     return category;
+  }
+
+  handleClick(name) {
+    this.props.assign(this.getCategory());
   }
 }
 

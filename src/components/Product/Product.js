@@ -1,9 +1,18 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, matchPath } from "react-router-dom";
 import { cart } from "assets";
 import { CurrencyDisplay } from "./CurrencyDisplay";
+import fetchGraphQL from "components/fetchGraphQL";
 
-class PLPProduct extends Component {
+class Product extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { id: "", data: {} };
+  }
+
+  async componentDidMount() {
+    // console.log(this.props);
+  }
   render() {
     return (
       <li
@@ -33,6 +42,13 @@ class PLPProduct extends Component {
       </li>
     );
   }
+
+  getParams() {
+    let { category } = matchPath(this.props.history.location.pathname, {
+      path: this.props.match.path,
+    }).params;
+    return category;
+  }
 }
 
-export default PLPProduct;
+export default Product;

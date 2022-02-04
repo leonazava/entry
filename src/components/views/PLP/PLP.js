@@ -11,7 +11,7 @@ class PLP extends Component {
           history={this.props.history}
           match={this.props.match}
         />
-        <ProductList />
+        <ProductList history={this.props.history} match={this.props.match} />
       </div>
     );
   }

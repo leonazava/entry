@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 class CurrencyDisplayClass extends Component {
-  componentDidMount() {
-    console.log(this.props);
-  }
   getCurrency(el) {
     let res;
     for (let i = 0; i < el.length; i++) {
