@@ -17,26 +17,6 @@ class ProductListClass extends Component {
       category(input: {title: "${this.props.value}"} ) {
         products {
           id,
-          name,
-          brand,
-          gallery,
-          inStock,
-          prices {
-            currency {
-              label
-            },
-            amount
-          },
-          attributes {
-            name,
-            type,
-            items {
-              displayValue,
-              value,
-              id
-            }
-          },
-          description
         }
       }
     }
@@ -51,13 +31,8 @@ class ProductListClass extends Component {
   render() {
     return (
       <ul className="PLP__container">
-        {this.state.value?.map((el, i) => (
-          <Product
-            key={i}
-            data={el}
-            history={this.props.history}
-            match={this.props.match}
-          />
+        {this.state.value?.map(({ id }, i) => (
+          <Product key={i} id={id} />
         ))}
       </ul>
     );
