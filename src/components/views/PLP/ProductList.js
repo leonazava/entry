@@ -11,14 +11,14 @@ class ProductListClass extends Component {
   }
   //  fetch new data based on selected category change
   async componentDidUpdate(prevProps) {
-    console.log("update before condition");
     if (prevProps.value === this.props.value) return;
-    console.log("update after condition");
     const [response, error] = await fetchGraphQL(`
       query {
       category(input: {title: "${this.props.value}"} ) {
         products {
+          id,
           name,
+          brand,
           gallery,
           inStock,
           prices {
@@ -26,7 +26,17 @@ class ProductListClass extends Component {
               label
             },
             amount
-          }
+          },
+          attributes {
+            name,
+            type,
+            items {
+              displayValue,
+              value,
+              id
+            }
+          },
+          description
         }
       }
     }

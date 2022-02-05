@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { PLP, Navbar } from "components";
+import { PLP, Navbar, PDP } from "components";
 
 class App extends Component {
   constructor(props) {
@@ -10,17 +10,17 @@ class App extends Component {
 
   render() {
     return (
-      <>
+      <div className="App">
         <Navbar />
         <Router>
           <Switch>
             {" "}
             <Route path="/category/:category" component={PLP} />
-            {/* <Route path="/cart" component={Cart} /> */}
+            <Route path="/product/:id" component={PDP} />
             {/* <Route to="*"></Route> */}
           </Switch>
         </Router>
-      </>
+      </div>
     );
   }
 }
