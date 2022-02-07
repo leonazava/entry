@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component, createRef } from "react";
 import { logo, cart, arrow } from "../../assets";
 import { connect } from "react-redux";
 import { assign, select } from "../../store/currencyStore";
@@ -12,7 +12,7 @@ class Navbar extends Component {
       currencyOpen: false,
       bagOpen: false,
     };
-    this.wrapperRef = React.createRef();
+    this.wrapperRef = createRef();
     this.handleClickOutside = this.handleClickOutside.bind(this);
     this.handleCurrencyModalClick = this.handleCurrencyModalClick.bind(this);
     this.handleCurrencySelect = this.handleCurrencySelect.bind(this);

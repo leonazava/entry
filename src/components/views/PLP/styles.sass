@@ -27,26 +27,27 @@
         grid-row-gap: 7rem
         grid-template-columns: repeat(3, 1fr)
 
-        .PLP__product
-            // the product is considered out-of-stock unless the data says otherwise
+        .product
+            &__description, &__add-to-cart, h2, .image-selector-container
+                display: none
             opacity: 0.5
             aspect-ratio: 0.9
             padding: 1rem
             display: flex
             flex-direction: column
-            justify-content: space-between
-            gap: 1rem
+            gap: 2rem
             background: white
             transition: filter 0.2s
-            &-image-container
+            .image-display
+                width: 100%
+                aspect-ratio: 1.1
+                img
+                    width: 100%
+                    aspect-ratio: 1.1
+                    object-fit: contain
+            &__images 
                 position: relative
-                width: 100%
-                aspect-ratio: 1.1
-            &-image-container > img
-                width: 100%
-                aspect-ratio: 1.1
-                object-fit: contain
-            &-image-container .add-to-cart-btn
+            .add-to-cart-btn
                 position: absolute
                 right: 15px
                 bottom: -26px
@@ -62,31 +63,35 @@
                 align-items: center
                 img
                     filter: invert(1)
-            &-image-container h2 
+            &__images h2 
+                display: block
                 @include utils.l(normal)
                 user-select: none
                 position: absolute
                 top: 50%
                 left: 50%
                 transform: translate(-50%, -50%)
-            &-description
-                h2 
+            .product__title
+                display: flex
+                flex-direction: row
+                gap: 0.5ch
+                > *
+                    @include utils.m
                     color: vars.$c-black
-                h2:first-child  
-                    @include utils.m
                     font-weight: 300
-                h2:nth-child(2) 
-                    @include utils.m
-                    font-weight:500
+            .product__price
+                h3
+                    font-weight: 500
 
-        //  special stylings for in-stock products
-        .PLP__product.in-stock
+        // //  special stylings for in-stock products
+        .product.in-stock
+            cursor: pointer
             opacity: 1
-            .PLP__product-image-container h2 
+            .product__images h2 
                 display: none
-        .PLP__product.in-stock:hover 
+        .product.in-stock:hover 
             filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19))
-            .PLP__product-image-container .add-to-cart-btn
+            .add-to-cart-btn
                 visibility: visible
                 opacity: 1
 

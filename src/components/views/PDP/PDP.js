@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import Product from "components/Product/Product";
 import getParams from "components/getParams";
 import "./styles.sass";
@@ -7,7 +7,6 @@ class PDP extends Component {
   render() {
     return (
       <div className="PDP">
-        pdp
         <Product id={this.getId()} />
       </div>
     );

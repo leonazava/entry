@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import Product from "components/Product/Product";
 import fetchGraphQL from "components/fetchGraphQL";
 import { connect } from "react-redux";
@@ -32,7 +32,9 @@ class ProductListClass extends Component {
     return (
       <ul className="PLP__container">
         {this.state.value?.map(({ id }, i) => (
-          <Product key={i} id={id} />
+          <li key={i} className="PLP__product">
+            <Product id={id} />
+          </li>
         ))}
       </ul>
     );
