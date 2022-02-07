@@ -23,7 +23,10 @@ class Gallery extends Component {
           </div>
         </div>
         <div className="image-display">
-          <img src={this.props.images[this.state.index]} alt="product image" />
+          <img
+            src={this.props.images[this.state.index]}
+            alt="product display"
+          />
         </div>
       </div>
     );

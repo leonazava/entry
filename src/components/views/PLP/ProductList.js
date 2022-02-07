@@ -32,7 +32,11 @@ class ProductListClass extends Component {
     return (
       <ul className="PLP__container">
         {this.state.value?.map(({ id }, i) => (
-          <li key={i} className="PLP__product">
+          <li
+            key={i}
+            className="PLP__product"
+            onClick={() => this.props.handleClick(id)}
+          >
             <Product id={id} />
           </li>
         ))}
