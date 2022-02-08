@@ -28,7 +28,11 @@ class OptionBox extends Component {
     return (
       <li
         className={`options-box ${this.props.isSelected ? "selected" : ""}`}
-        onClick={this.props.handleClick}
+        // onClick={this.props.handleClick}
+        onClick={(e) => {
+          e.stopPropagation();
+          this.props.handleClick();
+        }}
       >
         {this.props.children}
       </li>
