@@ -21,7 +21,6 @@ class PLP extends Component {
   }
   handleClick(id) {
     this.props.history.push(`/product/${id}`);
-    console.log("click");
   }
 }
 

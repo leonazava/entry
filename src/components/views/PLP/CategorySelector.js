@@ -22,6 +22,10 @@ class CategorySelectorClass extends Component {
     this.setState({ value: response.data.categories });
   }
 
+  componentWillUnmount() {
+    this.props.assign("");
+  }
+
   render() {
     function capitalize(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
