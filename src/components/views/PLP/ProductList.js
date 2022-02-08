@@ -79,6 +79,7 @@ class Product extends Component {
             <AddToCartBtn>
               <img src={cart} alt="icon" />
             </AddToCartBtn>
+            {/* shadow */}
             <div className="btn-clone" />
           </div>
         </div>
