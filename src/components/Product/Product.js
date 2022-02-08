@@ -13,48 +13,14 @@ class Product extends Component {
     this.state = { id: "", data: {}, selectedOption: 0 };
     this.descriptionRef = createRef();
     this.handleOptionClick = this.handleOptionClick.bind(this);
+    this.getData = this.getData.bind(this);
   }
 
   async componentDidMount() {
-    const [response, error] = await fetchGraphQL(`
-    query {
-      product(id: "${this.props.id}") {
-        name
-        inStock
-        gallery
-        description
-        attributes {
-          id
-          name
-          type
-          items {
-            displayValue
-            value
-            id
-          }
-        }
-        prices {
-          currency {
-            label
-          }
-          amount
-        }
-        brand
-      }
-    }
-    `);
-
-    if (error) {
-      console.log(error);
-      return;
-    }
-    this.setState({ data: response.data.product });
-  }
-  componentDidUpdate() {
-    // console.log(this.state);
-    this.descriptionRef.current.innerHTML = this.state.data.description;
+    await this.getData();
   }
   render() {
+    if (!this.props.id) return "";
     if (!this.state.data?.name) return "";
     return (
       <div className={`product ${this.state.data.inStock ? "in-stock" : ""}`}>
@@ -106,6 +72,41 @@ class Product extends Component {
   }
   handleOptionClick(i) {
     this.setState({ selectedOption: i });
+  }
+  async getData() {
+    const [response, error] = await fetchGraphQL(`
+    query {
+      product(id: "${this.props.id}") {
+        name
+        inStock
+        gallery
+        description
+        attributes {
+          id
+          name
+          type
+          items {
+            displayValue
+            value
+            id
+          }
+        }
+        prices {
+          currency {
+            label
+          }
+          amount
+        }
+        brand
+      }
+    }
+    `);
+
+    if (error) {
+      console.log(error);
+      return;
+    }
+    this.setState({ data: response.data.product });
   }
 }
 

@@ -37,7 +37,7 @@ class ProductListClass extends Component {
             className="PLP__product"
             onClick={() => this.props.handleClick(id)}
           >
-            <Product id={id} />
+            <Product key={id} id={id} />
           </li>
         ))}
       </ul>
