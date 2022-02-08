@@ -25,13 +25,11 @@ class PDP extends Component {
         gallery
         description
         attributes {
-          id
           name
           type
           items {
-            displayValue
             value
-            id
+            displayValue
           }
         }
         prices {
@@ -48,7 +46,6 @@ class PDP extends Component {
       console.log(error);
       return;
     }
-    console.log(response);
     this.setState({ value: response.data.product });
   }
   render() {
@@ -92,10 +89,9 @@ class Product extends Component {
           <div className="product__options">
             {attributes && (
               <>
-                <h2>{attributes[0].name.toUpperCase()}</h2>
+                {/* <h2>{attributes[0].name.toUpperCase()}</h2> */}
                 <Options
-                  type={attributes[0].type}
-                  items={attributes[0].items}
+                  attributes={attributes}
                   selectedOption={this.state.selectedOption}
                   handleOptionClick={this.handleOptionClick}
                 />

@@ -29,6 +29,14 @@ class ProductListClass extends Component {
               label
             }
           }
+          attributes {
+            name 
+            type 
+            items {
+              value
+              displayValue
+            }
+          }
         }
       }
     }

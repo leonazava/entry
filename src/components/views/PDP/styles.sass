@@ -49,6 +49,8 @@
             object-fit: contain
 
     &__info
+        min-width: 290px
+        max-width: 300px
         h2 
             @include utils.m 
             font-weight: bold
@@ -63,6 +65,8 @@
             @include utils.xl(600) 
         &-name
             @include utils.xl
+    .attribute-field + .attribute-field
+        margin-top: 1.5rem
     .options-select
         --cols: 5
         width: 100%
