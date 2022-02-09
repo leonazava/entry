@@ -53,7 +53,7 @@ class ProductListClass extends Component {
       <ul className="PLP__container">
         {this.state.value?.map((el, i) => (
           <Product
-            key={i}
+            key={el.name}
             data={el}
             handleClick={() => this.props.handleClick(el.id)}
           />
@@ -66,11 +66,13 @@ class ProductListClass extends Component {
 class Product extends Component {
   constructor(props) {
     super(props);
-    this.state = { selectedOption: 0 };
-    this.handleOptionClick = this.handleOptionClick.bind(this);
+    this.state = { optionsOpen: false, options: {} };
+    this.toggle = this.toggle.bind(this);
+    this.setOptions = this.setOptions.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
   render() {
-    let { name, brand, gallery, prices, inStock } = this.props.data;
+    let { name, brand, gallery, prices, inStock, attributes } = this.props.data;
     return (
       <div
         className={`product ${inStock ? "in-stock" : ""}`}
@@ -84,9 +86,15 @@ class Product extends Component {
           <img src={gallery[0]} alt="product" />
           <h2>OUT OF STOCK</h2>
           <div className="btn-wrapper">
-            <AddToCartBtn>
+            <div
+              className="add-to-cart-btn stage"
+              onClick={(e) => {
+                e.stopPropagation();
+                this.toggle();
+              }}
+            >
               <img src={cart} alt="icon" />
-            </AddToCartBtn>
+            </div>
             {/* shadow */}
             <div className="btn-clone" />
           </div>
@@ -102,12 +110,38 @@ class Product extends Component {
             </h3>
           </div>
         </div>
+        <div
+          className={`options-wrapper ${this.state.optionsOpen ? "open" : ""}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="options-container">
+            <Options
+              attributes={attributes}
+              options={this.state.options}
+              setOptions={this.setOptions}
+              handleClick={this.handleClick}
+            />
+            <AddToCartBtn>
+              <p>ADD TO CART</p>
+            </AddToCartBtn>
+          </div>
+        </div>
       </div>
     );
   }
-
-  handleOptionClick(i) {
-    this.setState({ selectedOption: i });
+  // handle an option click, set the selected option
+  handleClick(attr, i) {
+    this.setState((state) => ({ options: { ...state.options, [attr]: i } }));
+  }
+  // on initial load, populate the state option field with a property for each attribute
+  setOptions(attributes) {
+    let obj = {};
+    attributes.map((el) => (obj = { ...obj, [el.name]: 0 }));
+    this.setState({ options: obj });
+  }
+  // open-close the options window
+  toggle() {
+    this.setState((prev) => ({ optionsOpen: !prev.optionsOpen }));
   }
 }
 

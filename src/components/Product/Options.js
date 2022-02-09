@@ -6,13 +6,11 @@ class Options extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.handleClick = this.handleClick.bind(this);
+    // this.handleClick = this.handleClick.bind(this);
   }
   // create a temp object, assign it properties according to the relevant attributes, and then set the state to that obj
   componentDidMount() {
-    let obj = {};
-    this.props.attributes.map((el) => (obj = { ...obj, [el.name]: 0 }));
-    this.setState(obj);
+    this.props.setOptions(this.props.attributes);
   }
   render() {
     return (
@@ -22,17 +20,17 @@ class Options extends Component {
             <AttributeField
               key={i}
               data={el}
-              currentSelection={this.state}
-              handleClick={this.handleClick}
+              currentSelection={this.props.options}
+              handleClick={this.props.handleClick}
             />
           );
         })}
       </>
     );
   }
-  handleClick(attr, i) {
-    this.setState({ [attr]: i });
-  }
+  // handleClick(attr, i) {
+  //   this.setState({ [attr]: i });
+  // }
 }
 
 // a component for each set of attributes for the prpoduct
@@ -41,7 +39,7 @@ class AttributeField extends Component {
     let { items, name, type } = this.props.data;
     return (
       <div className="attribute-field">
-        <h2>{name.toUpperCase()}</h2>
+        <h2>{name.toUpperCase()}:</h2>
         <ul
           className="options-select"
           style={{

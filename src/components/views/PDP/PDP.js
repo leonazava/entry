@@ -13,7 +13,7 @@ import fetchGraphQL from "components/fetchGraphQL";
 class PDP extends Component {
   constructor(props) {
     super(props);
-    this.state = { value: {} };
+    this.state = { value: {}, options: {} };
   }
   async componentDidMount() {
     let id = this.getId();
@@ -69,8 +69,9 @@ class PDP extends Component {
 class Product extends Component {
   constructor(props) {
     super(props);
-    this.state = { selectedOption: 0 };
-    this.handleOptionClick = this.handleOptionClick.bind(this);
+    this.state = { options: {} };
+    this.setOptions = this.setOptions.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
   render() {
     let { attributes, brand, name, prices, description, inStock, gallery } =
@@ -89,17 +90,17 @@ class Product extends Component {
           <div className="product__options">
             {attributes && (
               <>
-                {/* <h2>{attributes[0].name.toUpperCase()}</h2> */}
                 <Options
                   attributes={attributes}
-                  selectedOption={this.state.selectedOption}
-                  handleOptionClick={this.handleOptionClick}
+                  options={this.state.options}
+                  setOptions={this.setOptions}
+                  handleClick={this.handleClick}
                 />
               </>
             )}
           </div>
           <div className="product__price">
-            <h2>PRICE</h2>
+            <h2>PRICE:</h2>
             <h3>
               <CurrencyDisplay prices={prices} />
             </h3>
@@ -113,8 +114,14 @@ class Product extends Component {
     );
   }
 
-  handleOptionClick(i) {
-    this.setState({ selectedOption: i });
+  handleClick(attr, i) {
+    this.setState((state) => ({ options: { ...state.options, [attr]: i } }));
+  }
+  // on initial load, populate the state option field with a property for each attribute
+  setOptions(attributes) {
+    let obj = {};
+    attributes.map((el) => (obj = { ...obj, [el.name]: 0 }));
+    this.setState({ options: obj });
   }
 }
 

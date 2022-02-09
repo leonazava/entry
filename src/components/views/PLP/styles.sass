@@ -28,6 +28,7 @@
         grid-template-columns: repeat(3, 1fr)
 
         .product
+            position: relative
             opacity: 0.5
             aspect-ratio: 0.9
             padding: 1rem
@@ -51,7 +52,7 @@
                 bottom: -26px
                 width: 52px
                 height: 52px
-            .add-to-cart-btn, .btn-clone
+            .add-to-cart-btn.stage, .btn-clone
                 width: 100%
                 height: 100%
                 background-color: vars.$primary
@@ -83,7 +84,7 @@
                 top: 50%
                 left: 50%
                 transform: translate(-50%, -50%)
-            .product__title
+            &__title
                 display: flex
                 flex-direction: row
                 gap: 0.5ch
@@ -91,9 +92,10 @@
                     @include utils.m
                     color: vars.$c-black
                     font-weight: 300
-            .product__price
+            &__price
                 h3
                     font-weight: 500
+            
 
         // //  special stylings for in-stock products
         .product.in-stock
@@ -107,3 +109,76 @@
                 visibility: visible
                 opacity: 1
 
+
+.options-wrapper 
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    overflow: hidden
+    visibility: hidden
+    opacity: 0
+    .options-container
+        padding: 1rem
+        display: flex
+        justify-content: center
+        align-items: center
+        flex-direction: column
+        position: absolute
+        width: 100%
+        height: 100%
+        top: 100%
+        left: 0
+        background-color: rgba(255, 255, 255, 0.8)
+        backdrop-filter: blur(3px)
+        transition: .3s
+        h2 
+            @include utils.m 
+            font-weight: bold
+            font-family: "Roboto", sans-serif
+            text-align: center
+        h3 
+            @include utils.l(bold)
+.options-wrapper.open
+    cursor: auto
+    pointer-events: auto
+    visibility: visible
+    opacity: 1
+    .options-container
+        top: 0
+    .attribute-field
+        width: 100%
+    .attribute-field + .attribute-field
+        margin-top: 1.5rem
+    .options-select
+        --cols: 5
+        width: 100%
+        max-width: 100%
+        display: grid
+        gap: 1rem
+        grid-template-columns: repeat(var(--cols), 1fr)
+    .options-box
+        cursor: pointer
+        padding: 0.5rem 0
+        text-align: center
+        border: solid 1px black
+        transition: .2s
+        p
+            @include utils.s
+    .options-box.selected
+        background-color: black
+        color: white
+    .add-to-cart-btn
+        position: absolute
+        bottom: 1rem
+        cursor: pointer
+        margin-top: 1rem
+        width: calc(100% - 2rem)
+        padding: 1rem
+        text-align: center
+        color: white
+        background-color: vars.$primary
+        p 
+            font-weight: 600
+            @include utils.s
