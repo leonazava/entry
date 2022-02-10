@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { connect } from "react-redux";
-import { add } from "store/cartStore";
+import { addToCart } from "store/cartStore";
 
 class AddToCartBtnClass extends Component {
   render() {
@@ -9,6 +9,7 @@ class AddToCartBtnClass extends Component {
         className="add-to-cart-btn"
         onClick={(e) => {
           e.stopPropagation();
+          this.props.addToCart(this.props.data);
         }}
       >
         {" "}
@@ -18,6 +19,6 @@ class AddToCartBtnClass extends Component {
   }
 }
 
-export const AddToCartBtn = connect((state) => state.cart, { add })(
+export const AddToCartBtn = connect((state) => state.cart, { addToCart })(
   AddToCartBtnClass
 );

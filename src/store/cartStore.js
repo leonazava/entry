@@ -9,13 +9,13 @@ const cartSlice = createSlice({
     },
   },
   reducers: {
-    add: (state, action) => {
+    addToCart: (state, action) => {
       //update the sum of all costs
       state.value.totalPrice += 1;
 
       // check if a product's already in the cart
       let i = state.value.contents.findIndex(
-        (el) => el.name === action.payload
+        (el) => el.name === action.payload.name
       );
 
       // if it is, update it
@@ -25,14 +25,14 @@ const cartSlice = createSlice({
       }
 
       // if not, add it
-      state.value.contents.push({ name: action.payload, quantity: 1 });
+      state.value.contents.push({ ...action.payload, quantity: 1 });
     },
 
-    remove: (state, action) => {
+    removeFromCart: (state, action) => {
       state.value.totalPrice -= 1;
 
       let i = state.value.contents.findIndex(
-        (el) => el.name === action.payload
+        (el) => el.name === action.payload.name
       );
 
       if (state.value.contents[i].quantity > 1) {
@@ -45,6 +45,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { add, remove } = cartSlice.actions;
+export const { addToCart, removeFromCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

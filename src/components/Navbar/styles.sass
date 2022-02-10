@@ -1,6 +1,14 @@
 @use 'src/styles/utils'
 @use 'src/styles/vars' 
+@mixin modal 
+    visibility: hidden
+    opacity: 0
+    background-color: white
+    transition: .2s
+    position: absolute
+
 nav
+    position: relative
     @include utils.container
     display: flex
     justify-content: space-between
@@ -42,14 +50,9 @@ nav
         .currency img 
             margin-top: 5px
             transition: 0.2s
-        .modal
-            visibility: hidden
-            opacity: 0
-            background-color: white
-            transition: .2s
-            position: absolute
-            top: 150%
         .currency-modal
+            @include modal
+            top: 150%
             padding: 1rem 1.5rem
             display: grid
             grid-template-columns: repeat(2, 1fr)
@@ -72,3 +75,36 @@ nav
     .utils.currency-open .currency-modal
             visibility: visible
             opacity: 1 
+
+    .minicart-modal
+        @include modal
+        // visibility: visible !important
+        // opacity: 1 !important
+        display: flex
+        flex-direction: column
+        z-index: 10000
+        top: 100%
+        right: 0
+        width: 325px
+        height: 540px
+        padding: 1rem
+        background-color: gray
+        &__bag
+            position: relative
+            flex-grow: 1
+            background-color: white
+            border-bottom: 1px solid black
+            .cart
+                width: 100%
+                height: 100%
+                position: absolute
+                top: 0
+                left: 0
+                overflow-y: scroll
+        .total-price, .action-buttons
+            display: flex
+            justify-content: space-between
+
+    .minicart-modal.open
+        visibility: visible
+        opacity: 1

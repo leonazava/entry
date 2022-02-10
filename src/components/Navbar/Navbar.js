@@ -1,4 +1,5 @@
 import { Component, createRef } from "react";
+import Cart from "components/Cart/Cart";
 import { logo, cart, arrow } from "../../assets";
 import { connect } from "react-redux";
 import { assign, select } from "../../store/currencyStore";
@@ -61,9 +62,11 @@ class Navbar extends Component {
           <h3>MEN</h3>
           <h3>KIDS</h3>
         </div>
+        {/* // */}
         <div className="logo">
           <img src={logo} alt="logo" />
         </div>
+        {/* // */}
         <div className="utils-wrapper">
           <div
             ref={this.wrapperRef}
@@ -86,6 +89,26 @@ class Navbar extends Component {
                 </li>
               ))}
             </ul>
+          </div>
+        </div>
+        <div className="modal minicart-modal">
+          <div className="minicart-modal__items-count">
+            <h2>
+              <span>My Bag, </span>2 items
+            </h2>
+          </div>
+          <div className="minicart-modal__bag">
+            <Cart />
+          </div>
+          <div className="minicart-modal__conclusion">
+            <div className="total-price">
+              <h2>Total</h2>
+              <h2>$100.00</h2>
+            </div>
+            <div className="action-buttons">
+              <div>View bag</div>
+              <div>Checkout</div>
+            </div>
           </div>
         </div>
       </nav>

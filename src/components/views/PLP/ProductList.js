@@ -1,7 +1,7 @@
 import { Component, createRef } from "react";
 import fetchGraphQL from "components/fetchGraphQL";
 import { connect } from "react-redux";
-import { add } from "store/cartStore";
+import { addToCart } from "store/cartStore";
 import Options from "components/Product/Options";
 import { CurrencyDisplay, AddToCartBtn } from "components/Product";
 import { cart } from "assets";
@@ -121,7 +121,9 @@ class Product extends Component {
               setOptions={this.setOptions}
               handleClick={this.handleClick}
             />
-            <AddToCartBtn>
+            <AddToCartBtn
+              data={{ ...this.props.data, options: this.state.options }}
+            >
               <p>ADD TO CART</p>
             </AddToCartBtn>
           </div>
@@ -145,6 +147,6 @@ class Product extends Component {
   }
 }
 
-export const ProductList = connect((state) => state.category, { add })(
+export const ProductList = connect((state) => state.category, { addToCart })(
   ProductListClass
 );

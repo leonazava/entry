@@ -7,8 +7,8 @@ import {
   Description,
   AddToCartBtn,
 } from "components/Product";
-import "./styles.sass";
 import fetchGraphQL from "components/fetchGraphQL";
+import "./styles.sass";
 
 class PDP extends Component {
   constructor(props) {
@@ -105,7 +105,9 @@ class Product extends Component {
               <CurrencyDisplay prices={prices} />
             </h3>
           </div>
-          <AddToCartBtn>
+          <AddToCartBtn
+            data={{ ...this.props.data, options: this.state.options }}
+          >
             <p>ADD TO CART</p>
           </AddToCartBtn>
           <Description body={description} />

@@ -148,19 +148,16 @@
     .options-container
         top: 0
     .attribute-field
-        width: 100%
     .attribute-field + .attribute-field
         margin-top: 1.5rem
     .options-select
-        --cols: 5
-        width: 100%
         max-width: 100%
-        display: grid
+        display: flex
+        justify-content: center
         gap: 1rem
-        grid-template-columns: repeat(var(--cols), 1fr)
     .options-box
         cursor: pointer
-        padding: 0.5rem 0
+        padding: 0.5rem 1rem
         text-align: center
         border: solid 1px black
         transition: .2s
