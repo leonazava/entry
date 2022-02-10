@@ -115,12 +115,14 @@ class Product extends Component {
           onClick={(e) => e.stopPropagation()}
         >
           <div className="options-container">
-            <Options
-              attributes={attributes}
-              options={this.state.options}
-              setOptions={this.setOptions}
-              handleClick={this.handleClick}
-            />
+            <div>
+              <Options
+                attributes={attributes}
+                options={this.state.options}
+                setOptions={this.setOptions}
+                handleClick={this.handleClick}
+              />
+            </div>
             <AddToCartBtn
               data={{ ...this.props.data, options: this.state.options }}
             >

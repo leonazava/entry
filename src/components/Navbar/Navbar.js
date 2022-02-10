@@ -1,5 +1,5 @@
 import { Component, createRef } from "react";
-import Cart from "components/Cart/Cart";
+import { Cart } from "components/Cart/Cart";
 import { logo, cart, arrow } from "../../assets";
 import { connect } from "react-redux";
 import { assign, select } from "../../store/currencyStore";

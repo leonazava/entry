@@ -69,7 +69,7 @@ class PDP extends Component {
 class Product extends Component {
   constructor(props) {
     super(props);
-    this.state = { options: {} };
+    this.state = { options: [] };
     this.setOptions = this.setOptions.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }

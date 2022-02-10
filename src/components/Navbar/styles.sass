@@ -76,35 +76,46 @@ nav
             visibility: visible
             opacity: 1 
 
-    .minicart-modal
-        @include modal
-        // visibility: visible !important
-        // opacity: 1 !important
+.minicart-modal
+    @include modal
+    visibility: visible !important
+    opacity: 1 !important
+    display: flex
+    flex-direction: column
+    z-index: 10000
+    top: 100%
+    right: 0
+    width: 325px
+    height: 540px
+    padding: 1rem
+    background-color: gray
+    &__bag
+        position: relative
+        flex-grow: 1
+        background-color: white
+        border-bottom: 1px solid black
+        .cart
+            width: 100%
+            height: 100%
+            position: absolute
+            top: 0
+            left: 0
+            overflow-y: scroll
+            
+    .total-price, .action-buttons
         display: flex
-        flex-direction: column
-        z-index: 10000
-        top: 100%
-        right: 0
-        width: 325px
-        height: 540px
-        padding: 1rem
-        background-color: gray
-        &__bag
-            position: relative
-            flex-grow: 1
-            background-color: white
-            border-bottom: 1px solid black
-            .cart
-                width: 100%
-                height: 100%
-                position: absolute
-                top: 0
-                left: 0
-                overflow-y: scroll
-        .total-price, .action-buttons
-            display: flex
-            justify-content: space-between
+        justify-content: space-between
 
-    .minicart-modal.open
-        visibility: visible
-        opacity: 1
+.minicart-modal.open
+    visibility: visible
+    opacity: 1
+
+.minicart-modal .minicart-modal__bag .cart
+    h1, h3
+        font-size: 16px
+    .selected-options
+        display: flex
+        gap: 1rem
+    .options-box
+        border: 1px solid black
+        line-height: 1

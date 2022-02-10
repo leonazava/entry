@@ -111,6 +111,8 @@
 
 
 .options-wrapper 
+    display: flex
+    flex-direction: column
     position: absolute
     top: 0
     left: 0
@@ -147,6 +149,12 @@
     opacity: 1
     .options-container
         top: 0
+    .options-container > div:first-child
+        flex-grow: 1
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
     .attribute-field
     .attribute-field + .attribute-field
         margin-top: 1.5rem
@@ -167,8 +175,6 @@
         background-color: black
         color: white
     .add-to-cart-btn
-        position: absolute
-        bottom: 1rem
         cursor: pointer
         margin-top: 1rem
         width: calc(100% - 2rem)
