@@ -75,13 +75,11 @@
         gap: 1rem
         grid-template-columns: repeat(var(--cols), 1fr)
     .options-box
-        cursor: pointer
-        padding: 0.5rem 0
-        text-align: center
-        border: solid 1px black
         transition: .2s
         p
             @include utils.s
+    .box-option
+        padding: .5rem 1rem
     .options-box.selected
         background-color: black
         color: white

@@ -118,10 +118,11 @@
     left: 0
     width: 100%
     height: 100%
+    pointer-events: none
     overflow: hidden
-    visibility: hidden
-    opacity: 0
     .options-container
+        visibility: visible
+        opacity: 0
         padding: 1rem
         display: flex
         justify-content: center
@@ -142,12 +143,17 @@
             text-align: center
         h3 
             @include utils.l(bold)
+        .close-btn
+            position: absolute
+            top: 1rem
+            right: 1rem
+
 .options-wrapper.open
     cursor: auto
     pointer-events: auto
-    visibility: visible
-    opacity: 1
     .options-container
+        visibility: visible
+        opacity: 1
         top: 0
     .options-container > div:first-child
         flex-grow: 1
@@ -155,7 +161,6 @@
         flex-direction: column
         justify-content: center
         align-items: center
-    .attribute-field
     .attribute-field + .attribute-field
         margin-top: 1.5rem
     .options-select
@@ -164,20 +169,22 @@
         justify-content: center
         gap: 1rem
     .options-box
+        min-width: 36px
+        min-height: 36px
         cursor: pointer
-        padding: 0.5rem 1rem
         text-align: center
         border: solid 1px black
         transition: .2s
         p
             @include utils.s
+    .box-option
+        padding: 0.2rem 0.5rem
     .options-box.selected
         background-color: black
         color: white
     .add-to-cart-btn
         cursor: pointer
-        margin-top: 1rem
-        width: calc(100% - 2rem)
+        width: 100%
         padding: 1rem
         text-align: center
         color: white

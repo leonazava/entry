@@ -10,6 +10,8 @@ class AddToCartBtnClass extends Component {
         onClick={(e) => {
           e.stopPropagation();
           this.props.addToCart(this.props.data);
+          // close the options modal in PLP
+          this.props.toggle && this.props.toggle();
         }}
       >
         {" "}

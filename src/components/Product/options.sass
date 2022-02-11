@@ -1,11 +1,25 @@
+.options-box 
+    border: 1px solid black
+    cursor: pointer
 .swatch
-    --bg 
+    border-radius: 100%
+    aspect-ratio: 1
+    padding: 3px
+
+.swatch-option, .box-option
+    display: flex
+    justify-content: center
+    align-items: center
     width: 100%
-    aspect-ratio: 1.2
+    height: 100%
+.swatch-option
+    align-items: center
+    border-radius: 100%
+    --bg
     background-color: var(--bg)
 
-.swatch.White
+.swatch-option.White
     border: 1px solid black
 
-.swatch.Black
+.swatch-option.Black
     border: 1px solid white

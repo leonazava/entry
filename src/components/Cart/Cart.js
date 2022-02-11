@@ -4,14 +4,11 @@ import { connect } from "react-redux";
 import "./styles.sass";
 
 class CartClass extends Component {
-  componentDidUpdate() {
-    console.log(this.props.value);
-  }
   render() {
     return (
       <div className="cart">
-        {this.props.value.contents.map((el) => (
-          <Product data={el} key={el.name} />
+        {this.props.value.contents.map((el, i) => (
+          <Product data={el} key={`${el.name}-${i}`} />
         ))}
       </div>
     );
@@ -23,10 +20,22 @@ class Product extends Component {
     let keys = Object.keys(options);
     let selected = [];
     for (let i = 0; i < keys.length; i++) {
-      selected.push(attributes[i].items[options[keys[i]]].value);
+      selected.push({
+        name: attributes[i].name,
+        value: attributes[i].items[options[keys[i]]].value,
+      });
     }
     return selected;
   }
+
+  deriveOptionOutput(option) {
+    if (option.value === "Yes") return <p>{option.name}</p>;
+    if (option.value === "No") return;
+    if (option.value.includes("#"))
+      return <div className="swatch" style={{ "--bg": option.value }} />;
+    return <p>{option.value}</p>;
+  }
+
   render() {
     let { name, brand, prices, options, attributes } = this.props.data;
     return (
@@ -42,16 +51,14 @@ class Product extends Component {
             </h3>
           </div>
           <div className="selected-options">
-            {/* {Object.keys(options).map((el) => (
-              <div className="options-box" key={el}>
-                {options[el]}
-              </div>
-            ))} */}
-            {this.renderOptions(options, attributes).map((el, i) => (
-              <div key={i} className="options-box">
-                {el}
-              </div>
-            ))}
+            {this.renderOptions(options, attributes).map((el, i) => {
+              if (el.value === "No") return;
+              return (
+                <div key={i} className="options-box">
+                  {this.deriveOptionOutput(el)}
+                </div>
+              );
+            })}
           </div>
         </div>
         <div className="product__quantity"></div>

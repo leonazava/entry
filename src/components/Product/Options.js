@@ -28,9 +28,6 @@ class Options extends Component {
       </>
     );
   }
-  // handleClick(attr, i) {
-  //   this.setState({ [attr]: i });
-  // }
 }
 
 // a component for each set of attributes for the prpoduct
@@ -55,13 +52,18 @@ class AttributeField extends Component {
               isSelected={this.props.currentSelection[name] === i}
               handleClick={() => this.props.handleClick(name, i)}
             >
-              {type === "swatch" ? (
+              {/* {type === "swatch" ? (
                 <div
                   className={`swatch ${el.displayValue}`}
                   style={{ "--bg": el.value }}
                 />
               ) : (
                 <p>{el.value}</p>
+              )} */}
+              {type === "swatch" ? (
+                <SwatchElement value={el.value} />
+              ) : (
+                <BoxElement value={el.value} />
               )}
             </OptionBox>
           ))}
@@ -74,10 +76,12 @@ class AttributeField extends Component {
 // the selectable options boxes
 class OptionBox extends Component {
   render() {
-    let { isSelected } = this.props;
+    let { isSelected, isSwatch } = this.props;
     return (
       <li
-        className={`options-box ${isSelected ? "selected" : ""} 
+        className={`options-box ${isSelected ? "selected" : ""}  ${
+          isSwatch ? "swatch" : ""
+        }
         `}
         onClick={(e) => {
           e.stopPropagation();
@@ -86,6 +90,20 @@ class OptionBox extends Component {
       >
         {this.props.children}
       </li>
+    );
+  }
+}
+
+class BoxElement extends Component {
+  render() {
+    return <div className="box-option">{this.props.value}</div>;
+  }
+}
+
+class SwatchElement extends Component {
+  render() {
+    return (
+      <div className="swatch-option" style={{ "--bg": this.props.value }} />
     );
   }
 }

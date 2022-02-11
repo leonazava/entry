@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { assign, select } from "../../store/currencyStore";
 import fetchGraphQL from "../fetchGraphQL";
 import "./styles.sass";
+import { TotalItems } from "./TotalItems";
+import { TotalPrice } from "./TotalPrice";
 
 class Navbar extends Component {
   constructor(props) {
@@ -13,10 +15,15 @@ class Navbar extends Component {
       currencyOpen: false,
       bagOpen: false,
     };
-    this.wrapperRef = createRef();
+
+    this.utilsRef = createRef();
+
     this.handleClickOutside = this.handleClickOutside.bind(this);
+
     this.handleCurrencyModalClick = this.handleCurrencyModalClick.bind(this);
     this.handleCurrencySelect = this.handleCurrencySelect.bind(this);
+
+    this.foo = this.foo.bind(this);
   }
 
   async componentDidMount() {
@@ -39,19 +46,28 @@ class Navbar extends Component {
     document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
+  handleClickOutside(e) {
+    if (this.utilsRef && this.utilsRef.current.contains(e.target)) return;
+    this.setState({ currencyOpen: false, bagOpen: false });
+  }
+
   handleCurrencyModalClick() {
-    this.setState((state) => ({ currencyOpen: !state.currencyOpen }));
+    this.setState((state) => ({
+      bagOpen: false,
+      currencyOpen: !state.currencyOpen,
+    }));
+  }
+
+  foo() {
+    this.setState((state) => ({
+      currencyOpen: false,
+      bagOpen: !state.bagOpen,
+    }));
   }
 
   handleCurrencySelect(el) {
     this.props.select(el);
     this.setState({ currencyOpen: false });
-  }
-
-  handleClickOutside(event) {
-    if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
-      this.setState({ currencyOpen: false, bagOpen: false });
-    }
   }
 
   render() {
@@ -69,16 +85,16 @@ class Navbar extends Component {
         {/* // */}
         <div className="utils-wrapper">
           <div
-            ref={this.wrapperRef}
             className={`utils ${
               this.state.currencyOpen ? "currency-open" : ""
             }`}
+            ref={this.utilsRef}
           >
             <div className="currency" onClick={this.handleCurrencyModalClick}>
               <p>{this.props.value?.active.symbol}</p>
               <img src={arrow} alt="arrow" />
             </div>
-            <div className="minicart">
+            <div className="minicart" onClick={this.foo}>
               <img src={cart} alt="minicart" />
             </div>
             <ul className="modal currency-modal">
@@ -91,19 +107,24 @@ class Navbar extends Component {
             </ul>
           </div>
         </div>
-        <div className="modal minicart-modal">
+        <div
+          className={`modal minicart-modal ${this.state.bagOpen ? "open" : ""}`}
+        >
           <div className="minicart-modal__items-count">
             <h2>
-              <span>My Bag, </span>2 items
+              <span>My Bag, </span>
+              <TotalItems />
             </h2>
           </div>
-          <div className="minicart-modal__bag">
+          <div className={`minicart-modal__bag`}>
             <Cart />
           </div>
           <div className="minicart-modal__conclusion">
             <div className="total-price">
               <h2>Total</h2>
-              <h2>$100.00</h2>
+              <h2>
+                <TotalPrice />
+              </h2>
             </div>
             <div className="action-buttons">
               <div>View bag</div>

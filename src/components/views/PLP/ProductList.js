@@ -125,9 +125,19 @@ class Product extends Component {
             </div>
             <AddToCartBtn
               data={{ ...this.props.data, options: this.state.options }}
+              toggle={this.toggle}
             >
               <p>ADD TO CART</p>
             </AddToCartBtn>
+            <button
+              className="close-btn"
+              onClick={(e) => {
+                e.preventDefault();
+                this.toggle();
+              }}
+            >
+              <p>close</p>
+            </button>
           </div>
         </div>
       </div>

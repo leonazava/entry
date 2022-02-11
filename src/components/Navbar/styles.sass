@@ -78,8 +78,6 @@ nav
 
 .minicart-modal
     @include modal
-    visibility: visible !important
-    opacity: 1 !important
     display: flex
     flex-direction: column
     z-index: 10000
@@ -115,7 +113,9 @@ nav
         font-size: 16px
     .selected-options
         display: flex
-        gap: 1rem
+        gap: .5rem
     .options-box
         border: 1px solid black
         line-height: 1
+    p
+        font-size: 14px
