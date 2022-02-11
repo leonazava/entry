@@ -38,17 +38,16 @@ const cartSlice = createSlice({
       state.value.contents.push({ ...action.payload, quantity: 1 });
     },
 
-    removeFromCart: (state, action) => {
-      let i = state.value.contents.findIndex(
-        (el) => el.name === action.payload.name
-      );
+    increment: (state, action) => {
+      state.value.contents[action.payload].quantity += 1;
+    },
 
-      if (state.value.contents[i].quantity > 1) {
-        state.value.contents[i].quantity -= 1;
+    decrement: (state, action) => {
+      if (state.value.contents[action.payload].quantity > 1) {
+        state.value.contents[action.payload].quantity -= 1;
         return;
       }
-
-      state.value.contents.splice(i, 1);
+      state.value.contents.splice(action.payload, 1);
     },
 
     calculateTotalPrice: (state, action) => {
@@ -65,7 +64,12 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, calculateTotalPrice } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  calculateTotalPrice,
+  increment,
+  decrement,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

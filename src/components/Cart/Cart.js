@@ -1,5 +1,5 @@
-import { CurrencyDisplay } from "components/Product";
 import { Component, createRef } from "react";
+import { CurrencyDisplay, Quantity } from "components/Product";
 import { connect } from "react-redux";
 import "./styles.sass";
 
@@ -8,7 +8,7 @@ class CartClass extends Component {
     return (
       <div className="cart">
         {this.props.value.contents.map((el, i) => (
-          <Product data={el} key={`${el.name}-${i}`} />
+          <Product data={el} index={i} key={`${el.name}-${i}`} />
         ))}
       </div>
     );
@@ -61,7 +61,9 @@ class Product extends Component {
             })}
           </div>
         </div>
-        <div className="product__quantity"></div>
+        <div className="product__quantity">
+          <Quantity index={this.props.index} />
+        </div>
         <div className="product__gallery"></div>
       </div>
     );

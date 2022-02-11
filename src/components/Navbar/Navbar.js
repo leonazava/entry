@@ -47,8 +47,9 @@ class Navbar extends Component {
   }
 
   handleClickOutside(e) {
-    if (this.utilsRef && this.utilsRef.current.contains(e.target)) return;
-    this.setState({ currencyOpen: false, bagOpen: false });
+    // if (this.utilsRef && this.utilsRef.current.contains(e.target)) return;
+    // this.setState({ currencyOpen: false, bagOpen: false });
+    "";
   }
 
   handleCurrencyModalClick() {
