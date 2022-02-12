@@ -27,8 +27,8 @@ class Navbar extends Component {
   }
 
   async componentDidMount() {
-    document.addEventListener("mousedown", this.handleClickOutside);
-
+    this.curtain = document.querySelector(".curtain");
+    this.curtain.addEventListener("mousedown", this.handleClickOutside);
     const [response, error] = await fetchGraphQL(`query {
       currencies {
         label,
@@ -42,14 +42,27 @@ class Navbar extends Component {
     this.props.assign(response.data.currencies);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.currencyOpen || this.state.bagOpen) {
+      if (this.curtain.classList.contains("open")) return;
+      this.curtain.classList.add("open");
+      return;
+    }
+    this.curtain.classList.remove("open");
+  }
   componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
+    this.curtain.removeEventListener("mousedown", this.handleClickOutside);
   }
 
   handleClickOutside(e) {
     // if (this.utilsRef && this.utilsRef.current.contains(e.target)) return;
-    // this.setState({ currencyOpen: false, bagOpen: false });
-    "";
+    this.setState({ currencyOpen: false, bagOpen: false });
+  }
+
+  handleCurtain() {
+    this.curtain.classList.contains("open")
+      ? this.curtain.classList.remove("open")
+      : this.curtain.classList.add("open");
   }
 
   handleCurrencyModalClick() {
@@ -67,73 +80,82 @@ class Navbar extends Component {
   }
 
   handleCurrencySelect(el) {
+    this.handleCurtain();
     this.props.select(el);
     this.setState({ currencyOpen: false });
   }
 
   render() {
     return (
-      <nav>
-        <div className="sex">
-          <h3 className="active">WOMEN</h3>
-          <h3>MEN</h3>
-          <h3>KIDS</h3>
-        </div>
-        {/* // */}
-        <div className="logo">
-          <img src={logo} alt="logo" />
-        </div>
-        {/* // */}
-        <div className="utils-wrapper">
+      <div className="nav-container">
+        <nav>
+          <div className="sex">
+            <h3 className="active">WOMEN</h3>
+            <h3>MEN</h3>
+            <h3>KIDS</h3>
+          </div>
+          {/* // */}
+          <div className="logo">
+            <img src={logo} alt="logo" />
+          </div>
+          {/* // */}
+          <div className="utils-wrapper">
+            <div
+              className={`utils ${
+                this.state.currencyOpen ? "currency-open" : ""
+              }`}
+              ref={this.utilsRef}
+            >
+              <div className="currency" onClick={this.handleCurrencyModalClick}>
+                <p>{this.props.value?.active.symbol}</p>
+                <img src={arrow} alt="arrow" />
+              </div>
+              <div className="minicart" onClick={this.foo}>
+                <img src={cart} alt="minicart" />
+              </div>
+              <ul className="modal currency-modal">
+                {this.props.value?.currencies.map((e, i) => (
+                  <li key={i} onClick={() => this.handleCurrencySelect(e)}>
+                    <h3>{e.symbol}</h3>
+                    <h3>{e.label}</h3>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
           <div
-            className={`utils ${
-              this.state.currencyOpen ? "currency-open" : ""
+            className={`modal minicart-modal ${
+              this.state.bagOpen ? "open" : ""
             }`}
-            ref={this.utilsRef}
           >
-            <div className="currency" onClick={this.handleCurrencyModalClick}>
-              <p>{this.props.value?.active.symbol}</p>
-              <img src={arrow} alt="arrow" />
-            </div>
-            <div className="minicart" onClick={this.foo}>
-              <img src={cart} alt="minicart" />
-            </div>
-            <ul className="modal currency-modal">
-              {this.props.value?.currencies.map((e, i) => (
-                <li key={i} onClick={() => this.handleCurrencySelect(e)}>
-                  <h3>{e.symbol}</h3>
-                  <h3>{e.label}</h3>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-        <div
-          className={`modal minicart-modal ${this.state.bagOpen ? "open" : ""}`}
-        >
-          <div className="minicart-modal__items-count">
-            <h2>
-              <span>My Bag, </span>
-              <TotalItems />
-            </h2>
-          </div>
-          <div className={`minicart-modal__bag`}>
-            <Cart />
-          </div>
-          <div className="minicart-modal__conclusion">
-            <div className="total-price">
-              <h2>Total</h2>
+            <div className="minicart-modal__items-count">
               <h2>
-                <TotalPrice />
+                <span>My Bag, </span>
+                <TotalItems />
               </h2>
             </div>
-            <div className="action-buttons">
-              <div>View bag</div>
-              <div>Checkout</div>
+            <div className={`minicart-modal__bag`}>
+              <Cart />
+            </div>
+            <div className="minicart-modal__conclusion">
+              <div className="total-price">
+                <h2>Total</h2>
+                <h2>
+                  <TotalPrice />
+                </h2>
+              </div>
+              <div className="action-buttons">
+                <button>
+                  <p> VIEW BAG</p>
+                </button>
+                <button>
+                  <p>CHECKOUT</p>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </div>
     );
   }
 }

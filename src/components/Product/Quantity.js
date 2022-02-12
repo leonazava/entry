@@ -10,7 +10,9 @@ class QuantityClass extends Component {
         <div className="add" onClick={() => increment(index)}>
           <p>+</p>
         </div>
-        <div className="quantity">{value.contents[index].quantity}</div>
+        <div className="quantity">
+          <p>{value.contents[index].quantity}</p>
+        </div>
         <div className="remove" onClick={() => decrement(index)}>
           <p>-</p>
         </div>

@@ -6,7 +6,8 @@
     background-color: white
     transition: .2s
     position: absolute
-
+.nav-container
+    width: 100%
 nav
     position: relative
     @include utils.container
@@ -51,6 +52,7 @@ nav
             margin-top: 5px
             transition: 0.2s
         .currency-modal
+            z-index: 10000
             @include modal
             top: 150%
             padding: 1rem 1.5rem
@@ -86,23 +88,75 @@ nav
     width: 325px
     height: 540px
     padding: 1rem
-    background-color: gray
+    &__items-count h2
+        font-size: 16px
+        font-weight: 500
+        span
+            font-weight: 700
     &__bag
+        margin-top: 23px
         position: relative
         flex-grow: 1
         background-color: white
-        border-bottom: 1px solid black
         .cart
             width: 100%
             height: 100%
             position: absolute
             top: 0
             left: 0
-            overflow-y: scroll
+            overflow-y: auto
+        .price 
+            margin-top: 5px
+            h3 
+                font-weight: 500
+        .cart .product + .product
+            margin-top: 40px
+        .quantity-setter p 
+            width: 24px
+            height: 24px
+            display: flex
+            font-size: 16px
+            justify-content: center
+            align-items: center
+        .cart .product__gallery
+            margin-left: 10px
+            width: 105px
+            height: 137px
+        .options-box
+            padding: 0.2rem
+            min-width: 24px
+            min-height: 24px
+            max-height: 24px
+            p 
+                font-size: 14px
+    
+    &__conclusion
+        margin-top: 40px
             
     .total-price, .action-buttons
         display: flex
         justify-content: space-between
+    .total-price h2
+        font-size: 16px
+    .total-price h2:first-child
+        font-family: Roboto
+        font-weight: 500
+    .total-price h2:nth-child(2)
+        font-weight: bold
+    .action-buttons
+        margin-top: 35px
+        gap: 1rem
+    .action-buttons > *
+        width: 50%
+        text-align: center
+        min-height: 43px
+        font-size: 14px
+        font-weight: 600
+    .action-buttons button:first-child
+        border: 1px solid black
+    .action-buttons button:nth-child(2)
+        background-color: vars.$primary
+        color: white
 
 .minicart-modal.open
     visibility: visible
@@ -117,5 +171,18 @@ nav
     .options-box
         border: 1px solid black
         line-height: 1
-    p
-        font-size: 14px
+.views
+    position: relative
+.curtain
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background: rgba(57, 55, 72, 0.22)
+    visibility: hidden
+    opacity: 0
+    transition: .3s
+.curtain.open
+    visibility: visible
+    opacity: 1

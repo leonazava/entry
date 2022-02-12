@@ -21,20 +21,32 @@ const cartSlice = createSlice({
   },
   reducers: {
     addToCart: (state, action) => {
-      // check if a product's already in the cart
-      let i = state.value.contents.findIndex(
-        (el) => el.name === action.payload.name
-      );
-      // if it is, and the selected options are the same, update it
-      if (
-        i >= 0 &&
-        isEqual(state.value.contents[i].options, action.payload.options)
-      ) {
-        state.value.contents[i].quantity += 1;
-        return;
+      if (state.value.contents.length > 0) {
+        let twins = [];
+        let target;
+        // search all of the cart for all emenets with the same name as the one we're trying to add
+        // store them in the twins array
+        state.value.contents.forEach((el, i) => {
+          if (el.name === action.payload.name) {
+            twins.push(el);
+          }
+        });
+        // if there are duplicates, search if there's one with the same options as what we;re trying to add        /
+        // if there is, update its quantity
+        if (twins.length > 0) {
+          twins.forEach((el, i) => {
+            if (isEqual(el.options, action.payload.options)) {
+              target = el;
+              el.quantity += 1;
+              return;
+            }
+          });
+        }
+        // if the duplicate exists, stop
+        if (target) return;
       }
 
-      // if not, add it
+      // if not, add a new entry
       state.value.contents.push({ ...action.payload, quantity: 1 });
     },
 

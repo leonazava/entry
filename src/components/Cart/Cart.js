@@ -5,6 +5,8 @@ import "./styles.sass";
 
 class CartClass extends Component {
   render() {
+    let { contents } = this.props.value;
+    if (contents.length === 0) return <h1 className="cart-empty">EMPTY</h1>;
     return (
       <div className="cart">
         {this.props.value.contents.map((el, i) => (
@@ -16,6 +18,10 @@ class CartClass extends Component {
 }
 
 class Product extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { galleryIdnex: 0 };
+  }
   renderOptions(options, attributes) {
     let keys = Object.keys(options);
     let selected = [];
@@ -37,7 +43,7 @@ class Product extends Component {
   }
 
   render() {
-    let { name, brand, prices, options, attributes } = this.props.data;
+    let { name, brand, prices, options, attributes, gallery } = this.props.data;
     return (
       <div className="product">
         <div className="product__overview">
@@ -64,7 +70,9 @@ class Product extends Component {
         <div className="product__quantity">
           <Quantity index={this.props.index} />
         </div>
-        <div className="product__gallery"></div>
+        <div className="product__gallery">
+          <img src={gallery[this.state.galleryIdnex]} alt="product" />
+        </div>
       </div>
     );
   }

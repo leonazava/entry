@@ -15,7 +15,7 @@ class TotalPriceClass extends Component {
   render() {
     return (
       <>
-        ${this.props.currency.value.symbol}
+        {this.props.currency.value.active.symbol}
         {Math.round((this.props.cart.value.totalPrice + Number.EPSILON) * 100) /
           100}
       </>

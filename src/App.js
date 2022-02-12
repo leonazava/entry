@@ -12,14 +12,17 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar />
-        <Router>
-          <Switch>
-            {" "}
-            <Route path="/category/:category" component={PLP} />
-            <Route path="/product/:id" component={PDP} />
-            {/* <Route to="*"></Route> */}
-          </Switch>
-        </Router>
+        <div className="views">
+          <Router>
+            <Switch>
+              {" "}
+              <Route path="/category/:category" component={PLP} />
+              <Route path="/product/:id" component={PDP} />
+              {/* <Route to="*"></Route> */}
+            </Switch>
+          </Router>
+          <div className="curtain" />
+        </div>
       </div>
     );
   }
