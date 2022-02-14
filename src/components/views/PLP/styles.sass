@@ -146,14 +146,6 @@
             position: absolute
             top: 1rem
             right: 1rem
-
-.options-wrapper.open
-    cursor: auto
-    pointer-events: auto
-    .options-container
-        visibility: visible
-        opacity: 1
-        top: 0
     .options-container > div:first-child
         flex-grow: 1
         display: flex
@@ -191,3 +183,11 @@
         p 
             font-weight: 600
             @include utils.s
+
+.options-wrapper.open
+    cursor: auto
+    pointer-events: auto
+    .options-container
+        visibility: visible
+        opacity: 1
+        top: 0

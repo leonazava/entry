@@ -91,7 +91,7 @@ nav
     &__items-count h2
         font-size: 16px
         font-weight: 500
-        span
+        > span:first-child
             font-weight: 700
     &__bag
         margin-top: 23px
@@ -120,6 +120,7 @@ nav
             align-items: center
         .cart .product__gallery
             margin-left: 10px
+            min-width: 105px
             width: 105px
             height: 137px
         .options-box
@@ -168,6 +169,7 @@ nav
     .selected-options
         display: flex
         gap: .5rem
+        flex-wrap: wrap
     .options-box
         border: 1px solid black
         line-height: 1
@@ -186,3 +188,30 @@ nav
 .curtain.open
     visibility: visible
     opacity: 1
+
+.minicart
+    position: relative
+    .total-items
+        visibility: visible
+        opacity: 1
+        display: block
+        position: absolute
+        background-color: black
+        border-radius: 100%
+        font-family: Roboto
+        font-weight: bold
+        font-size: 14px
+        color: white
+        width: 20px
+        height: 20px
+        display: flex
+        justify-content: center
+        align-items: center
+        top: -10px
+        right: -13px
+        transition: .2s
+        span
+            display: none
+    .total-items.hidden
+        visibility: hidden
+        opacity: 0

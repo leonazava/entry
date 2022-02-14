@@ -1,12 +1,13 @@
 import { Component, createRef } from "react";
 import { Cart } from "components/Cart/Cart";
+import { TotalItems } from "./TotalItems";
+import { TotalPrice } from "./TotalPrice";
 import { logo, cart, arrow } from "../../assets";
 import { connect } from "react-redux";
 import { assign, select } from "../../store/currencyStore";
+import { Link } from "react-router-dom";
 import fetchGraphQL from "../fetchGraphQL";
 import "./styles.sass";
-import { TotalItems } from "./TotalItems";
-import { TotalPrice } from "./TotalPrice";
 
 class Navbar extends Component {
   constructor(props) {
@@ -112,6 +113,7 @@ class Navbar extends Component {
               </div>
               <div className="minicart" onClick={this.foo}>
                 <img src={cart} alt="minicart" />
+                <TotalItems />
               </div>
               <ul className="modal currency-modal">
                 {this.props.value?.currencies.map((e, i) => (
@@ -145,12 +147,8 @@ class Navbar extends Component {
                 </h2>
               </div>
               <div className="action-buttons">
-                <button>
-                  <p> VIEW BAG</p>
-                </button>
-                <button>
-                  <p>CHECKOUT</p>
-                </button>
+                <ActionButton content="VIEW BAG" path="/bag" close={this.foo} />
+                <ActionButton content="CHECKOUT" path="/" close={this.foo} />
               </div>
             </div>
           </div>
@@ -159,5 +157,30 @@ class Navbar extends Component {
     );
   }
 }
+
+class ActionButtonClass extends Component {
+  isDisabled() {
+    return this.props.value.contents.length === 0;
+  }
+  render() {
+    let { content, path, close } = this.props;
+    return (
+      <button
+        disabled={this.isDisabled()}
+        className={`eee ${this.isDisabled() ? "disabled" : ""}`}
+        onClick={() => {
+          if (this.isDisabled()) return;
+          close();
+        }}
+      >
+        <Link to={path}>
+          <p>{content}</p>
+        </Link>
+      </button>
+    );
+  }
+}
+
+const ActionButton = connect((state) => state.cart)(ActionButtonClass);
 
 export default connect((state) => state.currency, { assign, select })(Navbar);

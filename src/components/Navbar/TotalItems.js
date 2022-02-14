@@ -9,9 +9,9 @@ class TotalItemsClass extends Component {
   render() {
     let { length } = this.props.value.contents;
     return (
-      <>
-        {length} {this.foo(length)}
-      </>
+      <span className={`total-items ${length === 0 ? "hidden" : ""}`}>
+        {length} <span>{this.foo(length)}</span>
+      </span>
     );
   }
 }

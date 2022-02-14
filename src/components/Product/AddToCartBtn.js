@@ -4,14 +4,17 @@ import { addToCart } from "store/cartStore";
 
 class AddToCartBtnClass extends Component {
   render() {
+    let { data, toggle } = this.props;
     return (
       <button
-        className="add-to-cart-btn"
+        // className="add-to-cart-btn"
+        className={`add-to-cart-btn ${data.inStock ? "" : "disabled"}`}
         onClick={(e) => {
+          if (!data.inStock) return;
           e.stopPropagation();
-          this.props.addToCart(this.props.data);
+          this.props.addToCart(data);
           // close the options modal in PLP
-          this.props.toggle && this.props.toggle();
+          toggle && toggle();
         }}
       >
         {" "}

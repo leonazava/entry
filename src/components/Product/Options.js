@@ -1,13 +1,12 @@
 import { Component } from "react";
-import "./options.sass";
 
 // all of the below together
 class Options extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    // this.handleClick = this.handleClick.bind(this);
   }
+
   // create a temp object, assign it properties according to the relevant attributes, and then set the state to that obj
   componentDidMount() {
     this.props.setOptions(this.props.attributes);

@@ -38,7 +38,7 @@ class Product extends Component {
     if (option.value === "Yes") return <p>{option.name}</p>;
     if (option.value === "No") return;
     if (option.value.includes("#"))
-      return <div className="swatch" style={{ "--bg": option.value }} />;
+      return <div className="swatch-option" style={{ "--bg": option.value }} />;
     return <p>{option.value}</p>;
   }
 
@@ -60,7 +60,12 @@ class Product extends Component {
             {this.renderOptions(options, attributes).map((el, i) => {
               if (el.value === "No") return;
               return (
-                <div key={i} className="options-box">
+                <div
+                  key={i}
+                  className={`options-box ${
+                    el.value.includes("#") ? "swatch" : ""
+                  }`}
+                >
                   {this.deriveOptionOutput(el)}
                 </div>
               );

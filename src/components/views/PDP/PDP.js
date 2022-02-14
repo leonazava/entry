@@ -108,7 +108,7 @@ class Product extends Component {
           <AddToCartBtn
             data={{ ...this.props.data, options: this.state.options }}
           >
-            <p>ADD TO CART</p>
+            {inStock ? <p>ADD TO CART</p> : <p>OUT OF STOCK</p>}
           </AddToCartBtn>
           <Description body={description} />
         </div>

@@ -1,6 +1,11 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { PLP, Navbar, PDP } from "components";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
+import { PLP, Navbar, PDP, Bag } from "components";
 
 class App extends Component {
   constructor(props) {
@@ -11,18 +16,21 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar />
-        <div className="views">
-          <Router>
+        <Router>
+          <Navbar />
+          <div className="views">
             <Switch>
               {" "}
               <Route path="/category/:category" component={PLP} />
+              <Route exact path="/">
+                <Redirect to="/category/all" component={PLP} />
+              </Route>
               <Route path="/product/:id" component={PDP} />
-              {/* <Route to="*"></Route> */}
+              <Route path="/bag" component={Bag} />
             </Switch>
-          </Router>
-          <div className="curtain" />
-        </div>
+            <div className="curtain" />
+          </div>
+        </Router>
       </div>
     );
   }
