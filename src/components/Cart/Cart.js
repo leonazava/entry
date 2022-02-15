@@ -1,4 +1,4 @@
-import { Component, createRef } from "react";
+import { Component } from "react";
 import { CurrencyDisplay, Quantity } from "components/Product";
 import { connect } from "react-redux";
 import "./styles.sass";
@@ -98,9 +98,9 @@ class Product extends Component {
               <path
                 d="M1 13L7 7L1 1"
                 stroke="white"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </div>
@@ -126,9 +126,9 @@ class Product extends Component {
               <path
                 d="M1 13L7 7L1 1"
                 stroke="white"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </div>

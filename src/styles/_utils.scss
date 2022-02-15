@@ -5,29 +5,13 @@
   padding: 0 1rem;
 }
 
-@mixin xxxl {
-  font-size: 42px;
+@mixin fxcol {
+  display: flex;
+  flex-direction: column;
 }
 
-@mixin xxl {
-  font-size: 32px;
-}
-
-@mixin xl($fw: normal) {
-  font-size: 30px;
-  line-height: 27px;
-  font-weight: $fw !important;
-}
-
-@mixin l($fw: normal) {
-  font-size: 24px;
-  font-weight: $fw;
-}
-
-@mixin m {
-  font-size: 18px;
-}
-
-@mixin s() {
-  font-size: 16px;
+@mixin fx0 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

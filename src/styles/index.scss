@@ -5,8 +5,7 @@
 .App {
   min-height: 100vh;
   max-width: 100vw;
-  display: flex;
-  flex-direction: column;
+  @include utils.fxcol;
   align-items: center;
   .views {
     width: 100%;
@@ -15,8 +14,12 @@
 }
 
 .options-box {
-  border: 1px solid black;
+  border: 1px solid vars.$c-text;
   cursor: pointer;
+  transition: 0.2s;
+  * {
+    user-select: none;
+  }
 }
 
 .swatch {
@@ -27,9 +30,7 @@
 
 .swatch-option,
 .box-option {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include utils.fx0;
   width: 100%;
   height: 100%;
 }
@@ -41,11 +42,11 @@
 }
 
 .swatch-option.White {
-  border: 1px solid black;
+  border: 1px solid vars.$c-text;
 }
 
 .swatch-option.White {
-  border: 1px solid white;
+  border: 1px solid vars.$c-white;
 }
 
 button.disabled {
@@ -55,15 +56,13 @@ button.disabled {
 }
 
 .options-box.selected {
-  background-color: black;
-  color: white;
+  background-color: vars.$c-black;
+  color: vars.$c-white;
 }
 
 .quantity-setter > * {
+  @include utils.fx0;
   padding: 0.3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   p {
     user-select: none;
   }

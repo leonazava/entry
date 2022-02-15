@@ -1,6 +1,5 @@
 import { Component } from "react";
 import { increment, decrement } from "store/cartStore";
-import { incrIco, decrIco } from "assets";
 import { connect } from "react-redux";
 
 class QuantityClass extends Component {
@@ -19,14 +18,14 @@ class QuantityClass extends Component {
             <path
               d="M8.5 1V16"
               stroke="#1D1F22"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M1 8.5H16"
               stroke="#1D1F22"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </div>
@@ -44,8 +43,8 @@ class QuantityClass extends Component {
             <path
               d="M1 0.5H16"
               stroke="#1D1F22"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </div>
