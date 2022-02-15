@@ -53,3 +53,18 @@ button.disabled {
   cursor: auto;
   pointer-events: none;
 }
+
+.options-box.selected {
+  background-color: black;
+  color: white;
+}
+
+.quantity-setter > * {
+  padding: 0.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  p {
+    user-select: none;
+  }
+}

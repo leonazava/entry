@@ -20,7 +20,7 @@ class CartClass extends Component {
 class Product extends Component {
   constructor(props) {
     super(props);
-    this.state = { galleryIdnex: 0 };
+    this.state = { galleryIndex: 0 };
   }
   renderOptions(options, attributes) {
     let keys = Object.keys(options);
@@ -58,11 +58,11 @@ class Product extends Component {
           </div>
           <div className="selected-options">
             {this.renderOptions(options, attributes).map((el, i) => {
-              if (el.value === "No") return;
+              if (el.value === "No") return "";
               return (
                 <div
                   key={i}
-                  className={`options-box ${
+                  className={`options-box selected ${
                     el.value.includes("#") ? "swatch" : ""
                   }`}
                 >
@@ -76,7 +76,62 @@ class Product extends Component {
           <Quantity index={this.props.index} />
         </div>
         <div className="product__gallery">
-          <img src={gallery[this.state.galleryIdnex]} alt="product" />
+          <img src={gallery[this.state.galleryIndex]} alt="product" />
+          {/* left */}
+          <div
+            className={`selector ${
+              this.state.galleryIndex === 0 ? "hidden" : ""
+            }`}
+            onClick={() =>
+              this.setState((state) => {
+                return { galleryIndex: state.galleryIndex - 1 };
+              })
+            }
+          >
+            <svg
+              width="8"
+              height="14"
+              viewBox="0 0 8 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1 13L7 7L1 1"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+          {/* right */}
+          <div
+            className={`selector ${
+              this.state.galleryIndex === gallery.length - 1 ? "hidden" : ""
+            }`}
+            onClick={() =>
+              this.setState((state) => {
+                return { galleryIndex: state.galleryIndex + 1 };
+              })
+            }
+          >
+            <svg
+              width="8"
+              height="14"
+              viewBox="0 0 8 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1 13L7 7L1 1"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     );

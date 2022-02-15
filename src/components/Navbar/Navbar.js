@@ -167,7 +167,7 @@ class ActionButtonClass extends Component {
     return (
       <button
         disabled={this.isDisabled()}
-        className={`eee ${this.isDisabled() ? "disabled" : ""}`}
+        className={`${this.isDisabled() ? "disabled" : ""}`}
         onClick={() => {
           if (this.isDisabled()) return;
           close();

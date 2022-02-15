@@ -29,7 +29,7 @@ class Options extends Component {
   }
 }
 
-// a component for each set of attributes for the prpoduct
+// a component for each set of attributes for the product
 class AttributeField extends Component {
   render() {
     let { items, name, type } = this.props.data;
@@ -51,14 +51,6 @@ class AttributeField extends Component {
               isSelected={this.props.currentSelection[name] === i}
               handleClick={() => this.props.handleClick(name, i)}
             >
-              {/* {type === "swatch" ? (
-                <div
-                  className={`swatch ${el.displayValue}`}
-                  style={{ "--bg": el.value }}
-                />
-              ) : (
-                <p>{el.value}</p>
-              )} */}
               {type === "swatch" ? (
                 <SwatchElement value={el.value} />
               ) : (

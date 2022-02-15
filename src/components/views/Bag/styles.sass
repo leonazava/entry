@@ -1,0 +1,44 @@
+@use "/src/styles/utils"
+@use "src/styles/vars"
+
+.Bag
+    @include utils.container
+    padding-top: 5rem
+    padding-bottom: 5rem
+    > h1 
+        font-size: 32px
+        font-weight: bold
+    .cart
+        margin-top: 4rem
+    .cart svg
+        mix-blend-mode: difference
+    .cart > *
+        min-height: 225px !important
+        padding: 1rem 0
+        border-top: 1px solid #E5E5E5
+    .product > *
+        min-height: 100%
+    .product__title
+        h1
+            font-size: 30px
+        h1:first-child
+            font-weight: 600
+        h1:nth-child(2)
+    .price h3 
+        font-size: 24px 
+        font-weight: bold
+    .product__gallery
+        max-width: 141px
+        margin-left: 12px
+    .quantity-setter > *, .options-box
+        min-width: 45px
+        min-height: 45px
+    .quantity
+        font-size: 24px
+        font-weight: 500
+    .selected-options > *:not(.swatch)
+        padding: 0.2rem 1rem
+    .quantity-setter .icon 
+        width: 15px
+        height: 15px
+    

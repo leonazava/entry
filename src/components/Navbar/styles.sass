@@ -77,6 +77,8 @@ nav
     .utils.currency-open .currency-modal
             visibility: visible
             opacity: 1 
+    .selector
+        display: none
 
 .minicart-modal
     @include modal
@@ -111,26 +113,30 @@ nav
                 font-weight: 500
         .cart .product + .product
             margin-top: 40px
-        .quantity-setter p 
+        .quantity-setter > *
             width: 24px
             height: 24px
-            display: flex
+        .quantity-setter .icon
+            width: 8px
+            height: 8px
+        .quantity-setter p 
             font-size: 16px
-            justify-content: center
-            align-items: center
         .cart .product__gallery
             margin-left: 10px
             min-width: 105px
             width: 105px
             height: 137px
         .options-box
-            padding: 0.2rem
             min-width: 24px
             min-height: 24px
             max-height: 24px
             p 
                 font-size: 14px
-    
+        .options-box:not(.swatch) 
+            padding: 0.2rem
+        .options-box.swatch
+            padding: 1px !important
+
     &__conclusion
         margin-top: 40px
             
@@ -149,10 +155,13 @@ nav
         gap: 1rem
     .action-buttons > *
         width: 50%
-        text-align: center
         min-height: 43px
-        font-size: 14px
-        font-weight: 600
+        a 
+            width: 100%
+            height: 100%
+            font-size: 14px
+            font-weight: 600  
+            text-align: center
     .action-buttons button:first-child
         border: 1px solid black
     .action-buttons button:nth-child(2)
@@ -170,9 +179,6 @@ nav
         display: flex
         gap: .5rem
         flex-wrap: wrap
-    .options-box
-        border: 1px solid black
-        line-height: 1
 .views
     position: relative
 .curtain
