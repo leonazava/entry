@@ -77,8 +77,6 @@ nav
     .utils.currency-open .currency-modal
             visibility: visible
             opacity: 1 
-    .selector
-        display: none
 
 .minicart-modal
     @include modal
@@ -106,6 +104,8 @@ nav
             top: 0
             left: 0
             overflow-y: auto
+        .selector
+            display: none !important
         .price 
             margin-top: 5px
             h3 
