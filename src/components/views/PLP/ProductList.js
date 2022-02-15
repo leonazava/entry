@@ -77,7 +77,7 @@ class Product extends Component {
       <div
         className={`product ${inStock ? "in-stock" : ""}`}
         onClick={() => {
-          if (!inStock) return;
+          // if (!inStock) return;
           this.props.handleClick();
         }}
       >

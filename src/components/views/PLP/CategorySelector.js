@@ -24,6 +24,7 @@ class CategorySelectorClass extends Component {
 
   componentWillUnmount() {
     this.props.assign("");
+    window.scrollTo(0, 0);
   }
 
   render() {
