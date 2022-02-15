@@ -1,4 +1,4 @@
-import { Component, createRef } from "react";
+import { Component } from "react";
 import fetchGraphQL from "components/fetchGraphQL";
 import { connect } from "react-redux";
 import { addToCart } from "store/cartStore";
