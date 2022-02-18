@@ -1,4 +1,5 @@
 import { Component, createRef } from "react";
+import { CategorySelector } from "./CategorySelector";
 import { Cart } from "components/Cart/Cart";
 import { TotalItems } from "./TotalItems";
 import { TotalPrice } from "./TotalPrice";
@@ -29,18 +30,24 @@ class Navbar extends Component {
 
   async componentDidMount() {
     this.curtain = document.querySelector(".curtain");
+
+    if (!this.state.currencyOpen || !this.state.bagOpen) {
+      this.curtain.classList.remove("open");
+    }
     this.curtain.addEventListener("mousedown", this.handleClickOutside);
-    const [response, error] = await fetchGraphQL(`query {
+    if (this.props.value.currencies.length === 0) {
+      const [response, error] = await fetchGraphQL(`query {
       currencies {
         label,
         symbol
       }
     }`);
-    if (error) {
-      console.log(error);
-      return;
+      if (error) {
+        console.log(error);
+        return;
+      }
+      this.props.assign(response.data.currencies);
     }
-    this.props.assign(response.data.currencies);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -90,10 +97,8 @@ class Navbar extends Component {
     return (
       <div className="nav-container">
         <nav>
-          <div className="sex">
-            <h3 className="active">WOMEN</h3>
-            <h3>MEN</h3>
-            <h3>KIDS</h3>
+          <div className="categories">
+            <CategorySelector initialCategory={this.props.initialCategory} />
           </div>
           {/* // */}
           <div className="logo">

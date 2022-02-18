@@ -5,7 +5,7 @@ const currencySlice = createSlice({
   initialState: {
     value: {
       currencies: [],
-      active: "USD",
+      active: { label: "USD", symbol: "$" },
     },
   },
   reducers: {

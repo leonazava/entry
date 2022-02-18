@@ -1,5 +1,5 @@
 import { Component } from "react";
-import getParams from "components/getParams";
+import { Navbar } from "components";
 import {
   Gallery,
   CurrencyDisplay,
@@ -8,6 +8,7 @@ import {
   AddToCartBtn,
 } from "components/Product";
 import fetchGraphQL from "components/fetchGraphQL";
+import getParams from "components/getParams";
 import "./styles.sass";
 
 class PDP extends Component {
@@ -51,9 +52,12 @@ class PDP extends Component {
   render() {
     if (!this.state.value?.name) return "";
     return (
-      <div className="PDP">
-        <Product data={this.state.value} />
-      </div>
+      <>
+        <Navbar />
+        <div className="PDP">
+          <Product data={this.state.value} />
+        </div>
+      </>
     );
   }
 

@@ -10,10 +10,10 @@ class ProductListClass extends Component {
   constructor(props) {
     super(props);
     this.state = { value: [] };
+    this.fetchData = this.fetchData.bind(this);
   }
-  //  fetch new data based on selected category change
-  async componentDidUpdate(prevProps) {
-    if (prevProps.value === this.props.value) return;
+
+  async fetchData() {
     const [response, error] = await fetchGraphQL(`
     query {
       category(input: { title: "${this.props.value}" }) {
@@ -47,18 +47,36 @@ class ProductListClass extends Component {
     }
     this.setState({ value: response.data.category.products });
   }
+  //  fetch  on initial load
+  async componentDidMount() {
+    this.fetchData();
+  }
+
+  //  fetch new data based on selected category change
+  async componentDidUpdate(prevProps) {
+    if (prevProps.value === this.props.value) return;
+    this.fetchData();
+  }
 
   render() {
+    function capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
     return (
-      <ul className="PLP__container">
-        {this.state.value?.map((el, i) => (
-          <Product
-            key={el.name}
-            data={el}
-            handleClick={() => this.props.handleClick(el.id)}
-          />
-        ))}
-      </ul>
+      <>
+        <div className="category-indicator">
+          <h1>{capitalize(this.props.value)}</h1>
+        </div>
+        <ul className="PLP__container">
+          {this.state.value?.map((el, i) => (
+            <Product
+              key={el.name}
+              data={el}
+              handleClick={() => this.props.handleClick(el.id)}
+            />
+          ))}
+        </ul>
+      </>
     );
   }
 }

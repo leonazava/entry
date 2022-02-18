@@ -5,7 +5,7 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-import { PLP, Navbar, PDP, Bag } from "components";
+import { PLP, PDP, Bag } from "components";
 
 class App extends Component {
   constructor(props) {
@@ -17,7 +17,6 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
-          <Route path="/" component={Navbar} />
           <div className="views">
             <Switch>
               {" "}

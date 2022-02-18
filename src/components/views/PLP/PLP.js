@@ -1,5 +1,6 @@
 import { Component } from "react";
-import { CategorySelector } from "./CategorySelector";
+import { Navbar } from "components";
+import getParams from "components/getParams";
 import { ProductList } from "./ProductList";
 import "./styles.sass";
 
@@ -10,17 +11,28 @@ class PLP extends Component {
   }
   render() {
     return (
-      <div className="PLP">
-        <CategorySelector
-          history={this.props.history}
-          match={this.props.match}
+      <>
+        <Navbar
+          initialCategory={() =>
+            this.getCategory(
+              this.props.history.location.pathname,
+              this.props.match.path
+            )
+          }
         />
-        <ProductList handleClick={this.handleClick} />
-      </div>
+        <div className="PLP">
+          <ProductList handleClick={this.handleClick} />
+        </div>
+      </>
     );
   }
   handleClick(id) {
     this.props.history.push(`/product/${id}`);
+  }
+
+  getCategory(pathname, path) {
+    let { category } = getParams(pathname, path);
+    return category;
   }
 }
 

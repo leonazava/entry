@@ -2,21 +2,17 @@
 @use "src/styles/vars"
 
 .PLP
-    padding-bottom: 5rem
     padding-top: 5rem
-    &__selector 
+    padding-bottom: 5rem
+    .category-indicator 
         @include utils.container
         display: flex
         li + li
             margin-left: 5rem
         h1
             font-size: vars.$xxxl
-            color: gray
+            color: vars.$c-text
             transition: .2s
-        h1:hover  
-            color: vars.$c-text
-        h1.active 
-            color: vars.$c-text
 
     &__container
         margin-top: 6rem
