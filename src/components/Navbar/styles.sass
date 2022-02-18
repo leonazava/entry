@@ -55,21 +55,27 @@ nav
             z-index: 10000
             @include modal
             top: 150%
-            padding: 1rem 1.5rem
+            padding: 1rem 0
             display: grid
             grid-template-columns: repeat(2, 1fr)
-            grid-row-gap: 1rem
             left: 50%
             transform: translate(-50%, 0)
             filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19))
         .currency-modal li 
             display: contents
             cursor: pointer
-            background-color: vars.$primary
+        .currency-modal li:hover h3 
+            background-color: rgba(168, 172, 176, 0.19)
         .currency-modal li h3 
+            padding: 0.5rem 0
+            display: block
             font-size: vars.$m
             font-weight: 500
+            transition: .2s
+        .currency-modal li h3:first-child 
+            padding-left: 1.5rem
         .currency-modal li h3:nth-child(2)
+            padding-right: 1.5rem
             padding-left: 1rem
 
     .utils.currency-open .currency img 

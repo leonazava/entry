@@ -1,15 +1,12 @@
-import { Component, createRef } from "react";
+import { Component } from "react";
 
 class Description extends Component {
-  constructor(props) {
-    super(props);
-    this.descriptionRef = createRef();
-  }
-  componentDidMount() {
-    this.descriptionRef.current.innerHTML = this.props.body;
-  }
   render() {
-    return <div className="product__description" ref={this.descriptionRef} />;
+    return (
+      <div className="product__description">
+        {this.props.body.replaceAll(/<[\s\S]*?>/g, "")}
+      </div>
+    );
   }
 }
 

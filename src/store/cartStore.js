@@ -15,12 +15,14 @@ const cartSlice = createSlice({
   name: "cart",
   initialState: {
     value: {
+      totalItems: 0,
       totalPrice: 0,
       contents: [],
     },
   },
   reducers: {
     addToCart: (state, action) => {
+      state.value.totalItems += 1;
       if (state.value.contents.length > 0) {
         let twins = [];
         let target;
@@ -51,10 +53,12 @@ const cartSlice = createSlice({
     },
 
     increment: (state, action) => {
+      state.value.totalItems += 1;
       state.value.contents[action.payload].quantity += 1;
     },
 
     decrement: (state, action) => {
+      state.value.totalItems -= 1;
       if (state.value.contents[action.payload].quantity > 1) {
         state.value.contents[action.payload].quantity -= 1;
         return;

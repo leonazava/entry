@@ -17,7 +17,7 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
-          <Navbar />
+          <Route path="/" component={Navbar} />
           <div className="views">
             <Switch>
               {" "}

@@ -7,10 +7,10 @@ class TotalItemsClass extends Component {
     return "items";
   }
   render() {
-    let { length } = this.props.value.contents;
+    let { totalItems } = this.props.value;
     return (
-      <span className={`total-items ${length === 0 ? "hidden" : ""}`}>
-        {length} <span>{this.foo(length)}</span>
+      <span className={`total-items ${totalItems === 0 ? "hidden" : ""}`}>
+        {totalItems} <span>{this.foo(totalItems)}</span>
       </span>
     );
   }
