@@ -10,9 +10,6 @@ class CategorySelectorClass extends Component {
     this.state = { value: [] };
   }
   async componentDidMount() {
-    // on ititial load, get the starting selected category from the URL
-    this.props.initialCategory &&
-      this.props.assign(this.props.initialCategory());
     // fetch the existing selectable categories
     const [response, error] = await fetchGraphQL(`query {categories { name }}`);
     if (error) {
@@ -20,6 +17,10 @@ class CategorySelectorClass extends Component {
       return;
     }
     this.setState({ value: response.data.categories });
+  }
+
+  componentDidUpdate(prevProps) {
+   this.props.initialCategory && this.props.assign(this.props.initialCategory())
   }
 
   componentWillUnmount() {
@@ -34,7 +35,6 @@ class CategorySelectorClass extends Component {
         {this.state.value.map(({ name }) => (
           <div
             key={name}
-            onClick={() => this.handleClick(name)}
             className={this.props.category.value === name ? "active" : ""}
           >
             <Link to={`/category/${name}`}>
@@ -46,9 +46,6 @@ class CategorySelectorClass extends Component {
     );
   }
 
-  handleClick(name) {
-    this.props.assign(name);
-  }
 }
 
 export const CategorySelector = connect(
