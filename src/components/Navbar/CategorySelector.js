@@ -28,9 +28,6 @@ class CategorySelectorClass extends Component {
   }
 
   render() {
-    function capitalize(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    }
     return (
       <>
         {" "}
@@ -41,7 +38,7 @@ class CategorySelectorClass extends Component {
             className={this.props.category.value === name ? "active" : ""}
           >
             <Link to={`/category/${name}`}>
-              <h3>{capitalize(name)}</h3>
+              <h3>{name.toUpperCase()}</h3>
             </Link>
           </div>
         ))}
